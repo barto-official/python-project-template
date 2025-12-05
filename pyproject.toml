@@ -1,0 +1,102 @@
+[project]
+# Support Python 3.10+.
+requires-python = ">=3.10"
+
+################################################################################
+# RUFF CONFIGURATION
+################################################################################
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "tests"]
+
+exclude = [
+    ".venv",
+    "venv",
+    ".mypy_cache",
+    ".ruff_cache",
+    "build",
+    "dist",
+    "docs/_build",
+]
+
+################################################################################
+# LINTING RULES
+################################################################################
+[tool.ruff.lint]
+
+# Categories to enable (production-ready balance)
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes (undefined names, unused vars/imports)
+    "B",      # flake8-bugbear (likely bugs)
+    "I",      # import sorting (isort)
+    "UP",     # pyupgrade (modern Python idioms)
+    "C90",    # complexity (McCabe)
+    "PL",     # selected Pylint rules
+    "DTZ",    # datetime safety
+    "PTH",    # pathlib correctness
+    "D",      # docstring rules (curated subset)
+]
+
+# Ignore overly strict or noisy rules used by many teams
+ignore = [
+    # DOCSTRING EXCLUSIONS — avoid noise in production
+    "D203",   # one blank line before class docstring
+    "D213",   # summary line in multi-line docstring on first line
+    "D100",   # missing module docstring
+    "D104",   # missing package docstring
+
+    # STRUCTURAL RULES (too strict for many teams)
+    "PLR2004",   # magic values
+    "PLR0913",   # too many arguments (tests, constructors often exceed)
+    "PLR0917",   # too many positional args
+
+    # Occasionally noisy patterns
+    "B019",  # functools.lru_cache uses per-instance function identity
+]
+
+# Automatically apply fixes for safe rules
+fixable = ["ALL"]
+unfixable = []
+
+################################################################################
+# DOCSTRING RULES (Google-style recommended)
+################################################################################
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+################################################################################
+# COMPLEXITY RULES
+################################################################################
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+################################################################################
+# PER-FILE EXCEPTIONS
+################################################################################
+[tool.ruff.lint.per-file-ignores]
+# Test files may violate docstring rules, magic numbers, and signature rules
+"tests/**" = ["D", "PLR2004", "PLR0913"]
+
+# __init__ often re-exports modules, leading to unused imports
+"__init__.py" = ["F401"]
+
+################################################################################
+# FORMATTER SETTINGS
+################################################################################
+[tool.ruff.format]
+# Match Black's philosophy, but configurable if needed.
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
+# Enable "magic trailing comma" behavior to achieve stable multi-line formatting.
+skip-magic-trailing-comma = false
+
+# Normalize docstring quotes
+docstring-code-format = true
+
+[tool.ruff.lint.isort]
+known-first-party = ["src"]
