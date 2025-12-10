@@ -94,8 +94,8 @@ body:
     attributes:
       label: "Workaround Available?"
       options:
-        - Yes
-        - No
+        - "Yes"
+        - "No"
     validations:
       required: true
 
