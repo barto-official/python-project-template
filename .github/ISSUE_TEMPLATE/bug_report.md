@@ -1,4 +1,4 @@
----
+--->
 name: "Bug report"
 about: "Report a defect or unexpected behavior"
 title: "[Bug] "
