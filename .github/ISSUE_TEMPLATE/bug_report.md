@@ -1,10 +1,10 @@
-<!--
+---
 name: "Bug report"
 about: "Report a defect or unexpected behavior"
 title: "[Bug] "
 labels: ["type:bug"]
 assignees: []
--->
+---
 
 ## 1. Summary
 

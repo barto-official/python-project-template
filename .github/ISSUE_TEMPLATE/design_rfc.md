@@ -1,10 +1,10 @@
-<!--
+---
 name: "Design / RFC"
 about: "Propose and discuss a significant design or architectural change"
 title: "[RFC] "
 labels: ["type:design", "type:rfc"]
 assignees: []
---->
+---
 
 ## 1. Summary
 
