@@ -1,0 +1,158 @@
+name: "Design / RFC"
+description: "Propose and discuss a significant design or architectural change"
+title: "[RFC] <short-title>"
+labels: ["type:design", "type:rfc"]
+assignees: []
+
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: "1. Summary"
+      description: "One or two sentences describing the proposal at a high level."
+      placeholder: "Introduce a dedicated rate-limiting service to decouple throttling from the API gateway."
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: "2. Motivation / Problem Statement"
+      description: |
+        Why is this change needed?
+        - What problem are we solving?
+        - Who is affected?
+        - Why is the current approach insufficient?
+      placeholder: "Describe the root problem, who it affects, and why existing solutions are insufficient."
+    validations:
+      required: true
+
+  - type: textarea
+    id: goals
+    attributes:
+      label: "3. Goals"
+      description: "What this proposal aims to achieve."
+      placeholder: |
+        - Provide centralized rate-limiting logic
+        - Reduce duplication across services
+        - Improve observability
+    validations:
+      required: true
+
+  - type: textarea
+    id: non_goals
+    attributes:
+      label: "3.2 Non-Goals"
+      description: "What is explicitly out of scope. Helps prevent scope creep."
+      placeholder: |
+        - Full rewrite of the API gateway
+        - Multi-region rollout (future work)
+    validations:
+      required: false
+
+  - type: textarea
+    id: architecture
+    attributes:
+      label: "4.1 High-Level Architecture"
+      description: "High-level diagram or description of the system: components, boundaries, data flow."
+      placeholder: "Provide diagrams, architecture descriptions, or links."
+    validations:
+      required: false
+
+  - type: textarea
+    id: detailed_design
+    attributes:
+      label: "4.2 Detailed Design"
+      description: |
+        Describe in-depth:
+        - Key flows and interactions
+        - Important code paths or abstractions
+        - APIs, schemas, or events
+      placeholder: "Provide detailed description of the design."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "5. Alternatives Considered"
+      description: "List alternative designs with pros/cons and explain why the proposed one is preferred."
+      placeholder: |
+        - Alternative A: ...
+          Pros:
+          Cons:
+        - Alternative B: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: backwards_compatibility
+    attributes:
+      label: "6.1 Backwards Compatibility"
+      description: "Does this break existing systems? Describe deprecation or migration needs."
+      placeholder: "Describe expected compatibility guarantees."
+    validations:
+      required: true
+
+  - type: textarea
+    id: operational_impact
+    attributes:
+      label: "6.2 Operational Impact"
+      description: |
+        Describe impact on:
+        - Performance and resource usage
+        - Reliability/failure modes
+        - Rollout/rollback
+        - Monitoring/alerting
+      placeholder: "Provide expected operational considerations."
+    validations:
+      required: true
+
+  - type: textarea
+    id: security_privacy
+    attributes:
+      label: "6.3 Security / Privacy"
+      description: |
+        Any security or privacy implications?
+        - Access control changes?
+        - New attack surface?
+        - Data retention or PII concerns?
+      placeholder: "Describe security/privacy concerns."
+    validations:
+      required: false
+
+  - type: textarea
+    id: migration_plan
+    attributes:
+      label: "7. Migration / Rollout Plan"
+      description: |
+        How do we migrate to the new design?
+        - Phases/milestones
+        - Feature flags
+        - Data migrations
+        - Rollback strategy
+      placeholder: "Describe the step-by-step rollout plan."
+    validations:
+      required: true
+
+  - type: textarea
+    id: open_questions
+    attributes:
+      label: "8. Open Questions"
+      description: "List questions that require decisions or feedback."
+      placeholder: |
+        - Question 1
+        - Question 2
+    validations:
+      required: false
+
+  - type: textarea
+    id: references
+    attributes:
+      label: "9. References"
+      description: "Links to related issues, docs, PRs, external references."
+      placeholder: |
+        - Related issues: #123, #456
+        - External documents or RFCs
+    validations:
+      required: false

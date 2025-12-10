@@ -1,4 +1,4 @@
----
+--->
 name: "Design / RFC"
 about: "Propose and discuss a significant design or architectural change"
 title: "[RFC] "
