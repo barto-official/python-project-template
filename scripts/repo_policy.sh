@@ -11,6 +11,7 @@ Options:
   -r  Repository name
   -b  Branch to protect (default: repo default branch)
   -t  Token (optional if GITHUB_TOKEN is set)
+  -h  Show help
 
 Env:
   GITHUB_TOKEN  Personal access token or GitHub App user token
@@ -20,6 +21,9 @@ Examples:
   ./scripts/apply-repo-policy.sh -o myorg -r myrepo -b main -t ghp_...
 EOF
 }
+
+log() { printf '%s\n' "$*"; }
+err() { printf 'ERROR: %s\n' "$*" >&2; }
 
 OWNER=""
 REPO=""
@@ -33,19 +37,19 @@ while getopts ":o:r:b:t:h" opt; do
     b) BRANCH="$OPTARG" ;;
     t) TOKEN="$OPTARG" ;;
     h) usage; exit 0 ;;
-    \?) echo "Unknown option: -$OPTARG" >&2; usage; exit 2 ;;
-    :)  echo "Missing argument for -$OPTARG" >&2; usage; exit 2 ;;
+    \?) err "Unknown option: -$OPTARG"; usage; exit 2 ;;
+    :)  err "Missing argument for -$OPTARG"; usage; exit 2 ;;
   esac
 done
 
 if [[ -z "$OWNER" || -z "$REPO" ]]; then
-  echo "ERROR: OWNER and REPO are required." >&2
+  err "OWNER and REPO are required."
   usage
   exit 2
 fi
 
 if [[ -z "$TOKEN" ]]; then
-  echo "ERROR: Provide a token via -t or GITHUB_TOKEN." >&2
+  err "Provide a token via -t or GITHUB_TOKEN."
   exit 2
 fi
 
@@ -53,6 +57,7 @@ API="https://api.github.com"
 HDR_ACCEPT="Accept: application/vnd.github+json"
 HDR_AUTH="Authorization: Bearer ${TOKEN}"
 HDR_VER="X-GitHub-Api-Version: 2022-11-28"
+HDR_CT="Content-Type: application/json"
 
 policy_dir=".github/repo-policy"
 repo_security_json="${policy_dir}/repo-security.json"
@@ -62,66 +67,116 @@ branch_protection_json="${policy_dir}/branch-protection.json"
 require_file() {
   local f="$1"
   if [[ ! -f "$f" ]]; then
-    echo "ERROR: Missing required file: $f" >&2
+    err "Missing required file: $f"
     exit 2
   fi
+}
+
+validate_json() {
+  local f="$1"
+  python3 -m json.tool "$f" >/dev/null \
+    || { err "Invalid JSON: $f"; exit 2; }
 }
 
 require_file "$repo_security_json"
 require_file "$codeql_json"
 require_file "$branch_protection_json"
 
+log "Validating policy JSON files"
+validate_json "$repo_security_json"
+validate_json "$codeql_json"
+validate_json "$branch_protection_json"
+
 api_call() {
   local method="$1"
   local url="$2"
   local data_file="${3:-}"
+  local resp_file=""
+  local http_code
+
+  resp_file="$(mktemp)"
+  trap '[[ -n "${resp_file:-}" ]] && rm -f "$resp_file"' RETURN
+
+  # Build curl args safely (no word-splitting surprises)
+  local -a curl_args=(
+    -sS -L
+    -X "$method"
+    -H "$HDR_ACCEPT"
+    -H "$HDR_AUTH"
+    -H "$HDR_VER"
+  )
 
   if [[ -n "$data_file" ]]; then
-    curl -sS -L -X "$method" \
-      -H "$HDR_ACCEPT" -H "$HDR_AUTH" -H "$HDR_VER" \
-      "$url" \
-      --data-binary @"$data_file"
-  else
-    curl -sS -L -X "$method" \
-      -H "$HDR_ACCEPT" -H "$HDR_AUTH" -H "$HDR_VER" \
-      "$url"
+    curl_args+=(-H "$HDR_CT" --data-binary @"$data_file")
   fi
+
+  # Note: curl itself can fail (network/TLS). Capture exit code.
+  if ! http_code="$(curl "${curl_args[@]}" -w "%{http_code}" -o "$resp_file" "$url")"; then
+    err "$method $url failed at transport level (curl error)."
+    err "curl output:"
+    cat "$resp_file" >&2 || true
+    exit 1
+  fi
+
+  # Success is any 2xx
+  if [[ "$http_code" -lt 200 || "$http_code" -ge 300 ]]; then
+    err "$method $url failed with HTTP $http_code"
+    cat "$resp_file" >&2
+    exit 1
+  fi
+
+  cat "$resp_file"
+}
+get_default_branch() {
+  local repo_json
+  repo_json="$(api_call GET "${API}/repos/${OWNER}/${REPO}")"
+
+  printf '%s' "$repo_json" | python3 -c '
+import json, sys
+
+data = sys.stdin.read().strip()
+if not data:
+    sys.exit("ERROR: Empty JSON response while reading repository metadata.")
+
+obj = json.loads(data)
+branch = obj.get("default_branch")
+if not branch:
+    sys.exit("ERROR: '\''default_branch'\'' missing in repository response.")
+
+print(branch)
+'
+}
+
+ensure_branch_exists() {
+  local branch="$1"
+  # If the branch doesn't exist, GitHub returns 404 and api_call will exit with the response body.
+  api_call GET "${API}/repos/${OWNER}/${REPO}/branches/${branch}" >/dev/null
 }
 
 # Determine default branch if BRANCH not provided
 if [[ -z "$BRANCH" ]]; then
-  repo_json="$(api_call GET "${API}/repos/${OWNER}/${REPO}")"
-  BRANCH="$(python3 - <<PY
-import json, sys
-obj=json.loads(sys.stdin.read())
-print(obj.get("default_branch",""))
-PY
-<<<"$repo_json")"
-  if [[ -z "$BRANCH" ]]; then
-    echo "ERROR: Could not determine default_branch." >&2
-    exit 1
-  fi
+  log "Determining default branch"
+  BRANCH="$(get_default_branch)"
 fi
 
-echo "Applying policy to ${OWNER}/${REPO} (branch: ${BRANCH})"
+log "Applying policy to ${OWNER}/${REPO} (branch: ${BRANCH})"
 
-echo "1) Configure repo security_and_analysis"
+log "Preflight: ensure branch exists (${BRANCH})"
+ensure_branch_exists "$BRANCH"
+
+log "1) Configure repo security_and_analysis"
 api_call PATCH "${API}/repos/${OWNER}/${REPO}" "$repo_security_json" >/dev/null
 
-echo "2) Enable vulnerability alerts (Dependabot alerts + dependency graph)"
-# PUT /repos/{owner}/{repo}/vulnerability-alerts :contentReference[oaicite:4]{index=4}
+log "2) Enable vulnerability alerts (Dependabot alerts + dependency graph)"
 api_call PUT "${API}/repos/${OWNER}/${REPO}/vulnerability-alerts" >/dev/null
 
-echo "3) Enable automated security fixes (Dependabot security updates)"
-# PUT /repos/{owner}/{repo}/automated-security-fixes :contentReference[oaicite:5]{index=5}
+log "3) Enable automated security fixes (Dependabot security updates)"
 api_call PUT "${API}/repos/${OWNER}/${REPO}/automated-security-fixes" >/dev/null
 
-echo "4) Configure CodeQL default setup (code scanning)"
-# PATCH /repos/{owner}/{repo}/code-scanning/default-setup :contentReference[oaicite:6]{index=6}
+log "4) Configure CodeQL default setup (code scanning)"
 api_call PATCH "${API}/repos/${OWNER}/${REPO}/code-scanning/default-setup" "$codeql_json" >/dev/null
 
-echo "5) Apply branch protection"
-# PUT /repos/{owner}/{repo}/branches/{branch}/protection :contentReference[oaicite:7]{index=7}
+log "5) Apply branch protection"
 api_call PUT "${API}/repos/${OWNER}/${REPO}/branches/${BRANCH}/protection" "$branch_protection_json" >/dev/null
 
-echo "Done."
+log "Done."
