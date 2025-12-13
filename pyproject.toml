@@ -1,6 +1,19 @@
 [project]
-# Support Python 3.10+.
-requires-python = ">=3.10"
+requires-python = ">=3.11"
+name = "PROJECT_NAME"
+version = "0.1.0"
+description = "PROJECT_DESCRIPTION"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [ { name = "Bartosz Rzycki", email = "bartosz.rzycki@gmail.com" }, ]
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "ruff>=0.6",
+  "mypy",
+  "pytest",
+]
 
 ################################################################################
 # RUFF CONFIGURATION
@@ -19,6 +32,7 @@ exclude = [
     "dist",
     "docs/_build",
 ]
+
 
 ################################################################################
 # LINTING RULES
