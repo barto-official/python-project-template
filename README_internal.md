@@ -1,4 +1,4 @@
-# CHOOSE ONLY OEN REPO. THIS ONE IS FOR BACKEND OR INTERNAL FACING REPOS. DELETE THE ONE YOU DON"T USE AND CHANGE THE NAME TO README.MD
+# CHOOSE ONLY One ReadME. THIS ONE IS FOR BACKEND OR INTERNAL FACING REPOS. DELETE THE ONE YOU DON"T USE AND CHANGE THE NAME TO README.MD
 
 # Project Name
 
@@ -86,33 +86,93 @@ flowchart LR
 -   **Config:** Pydantic Settings
     
 
-
 ## Getting Started
+
+This project is managed with `uv` + `pyproject.toml`. Dependencies are locked in `uv.lock` for reproducible installs.
 
 ### Requirements
 
 -   Python >= 3.12
-    
 -   Docker / Docker Compose
-    
--   uv / pip / poetry
-    
+-   `uv`
 
-### Install dependencies
+### Install `uv`
 
-Using `uv`:
+macOS / Linux:
 
-`uv sync`
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
-Or `pip`:
+Windows (PowerShell):
 
-`pip install -r requirements.txt`
+```powershell
+irm https://astral.sh/uv/install.ps1 | iex
+```
 
-### Start development environment
+Verify:
 
-`docker compose up --build`
+```bash
+uv --version
+python --version
+```
 
+### Create / use a virtual environment
 
+If you do not already have a venv, create one:
+
+```bash
+uv venv
+```
+
+Activate it:
+
+macOS / Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Windows (PowerShell):
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+### Install dependencies from lockfile
+
+Install exactly what’s in `uv.lock`:
+
+```bash
+uv sync
+```
+
+If you plan development:
+
+```bash
+uv sync --dev
+```
+
+### Development
+
+Run tests:
+
+```bash
+uv run pytest -q
+```
+
+Lint / format:
+
+```bash
+uv run ruff check .
+uv run ruff format .
+```
+
+Type-check (if you use mypy):
+
+```bash
+uv run mypy .
+```
 ---
 
 ## Configuration
