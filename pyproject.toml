@@ -58,7 +58,7 @@ exclude = [
 # LINTING RULES
 ################################################################################
 [tool.ruff.lint]
-
+preview = true
 # Categories to enable (production-ready balance)
 select = [
     "E",      # pycodestyle errors
@@ -89,7 +89,17 @@ extend-select = [
     "D205", # blank line between summary and description
     "D300", # triple double quotes
     "D400", # period at end of summary
-    "D401", # Imperative mood
+    "D401", # Imperative mood,
+
+    # Stable completeness (pydocstyle)
+    #"D417",
+
+     # -------------------------------------------------------------------------
+    # Preview pydoclint-derived rules. Feel free to remove them.
+    # -------------------------------------------------------------------------
+    "DOC101", "DOC102", "DOC104",
+    "DOC201",
+    "DOC501", "DOC502",
 ]
 
 # Ignore overly strict or noisy rules used by many teams
