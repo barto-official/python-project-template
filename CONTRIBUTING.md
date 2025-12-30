@@ -337,15 +337,20 @@ If your change may impact performance:
 
 ## Documentation
 
-Documentation is a first-class part of the contribution.
+Documentation is managed mainly by [Material MkDocs](https://squidfunk.github.io/mkdocs-material/). All settings can 
+be found in `mkdocs.yml`. The documentation source files are located in the `docs/` folder. The documentation consists 
+of three main pillars:
+* `README.md` as a entry gate. 
+* `docs/` for markdown in-depth guides (architecture and general guides)
+* Docstrings following [**Google Style Convention**](https://google.github.io/styleguide/pyguide.html).
 
+Public Reference and Markdowns are built using MkDocs and mkdocstrings and published to [INSERT LOCATION, E.G., `https://your-project-docs.com`]. Linting and pre-commit hooks include checks for markdown files and docstrings. 
+
+**Expectations**
 * Update `README.md` if user-facing behavior changes.
-* Add or update docs for new features, configuration, or APIs.
+* Docstrings are mandatory for all public APIs (classes, methods, functions, modules).
+* Add or update docs for every new or updated features, configuration, or APIs.
 * Provide examples (minimal and runnable) when applicable.
-* Keep documentation consistent with current behavior.
-
-If you use a docs site or generator, add instructions here.
---->
 
 ---
 

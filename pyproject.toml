@@ -15,20 +15,18 @@ dev = [
     "pytest>=8.2",
 ]
 docs = [
-  "mkdocs>=1.6",
-  "mkdocs-material>=9.5",
-  "mkdocstrings[python]>=0.25",
-  "pymdown-extensions>=10.8",
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.25",
+    "pymdown-extensions>=10.8",
     "mkdocs-autorefs>=1.0",
     "mkdocs-git-revision-date-localized-plugin>=1.2",
-  "mkdocs-minify-plugin>=0.8",
-  "mkdocs-redirects>=1.2",
-
-  "mike>=2.1",
-
-  "mdformat>=0.7",
-  "mdformat-gfm>=0.3",
-
+    "mkdocs-git-committers-plugin-2>=2.0",
+    "mkdocs-minify-plugin>=0.8",
+    "mkdocs-redirects>=1.2",
+    "mike>=2.1",
+    "mdformat>=0.7",
+    "mdformat-gfm>=0.3",
 ]
 
 [tool.setuptools]
@@ -73,17 +71,28 @@ select = [
     "PL",     # selected Pylint rules
     "DTZ",    # datetime safety
     "PTH",    # pathlib correctness
-    "D",      # docstring rules (curated subset)
+]
+
+extend-select = [
+    # -------------------------------------------------------------------------
+    # Docstring presence (public API)
+    # -------------------------------------------------------------------------
+    "D100", # public module
+    "D101", # public class
+    "D102", # public method
+    "D103", # public function
+    #"D104", # public package (__init__.py)
+
+    # -------------------------------------------------------------------------
+    # Optional but useful. Remove if too much friction.
+    # -------------------------------------------------------------------------
+    "D205", # blank line between summary and description
+    "D300", # triple double quotes
+    "D400", # period at end of summary
 ]
 
 # Ignore overly strict or noisy rules used by many teams
 ignore = [
-    # DOCSTRING EXCLUSIONS — avoid noise in production
-    "D203",   # one blank line before class docstring
-    "D213",   # summary line in multi-line docstring on first line
-    "D100",   # missing module docstring
-    "D104",   # missing package docstring
-
     # STRUCTURAL RULES (too strict for many teams)
     "PLR2004",   # magic values
     "PLR0913",   # too many arguments (tests, constructors often exceed)
@@ -103,6 +112,20 @@ unfixable = []
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
+# Ignore docstring checks for specific decorators (common: overloads)
+ignore-decorators = [
+    "typing.overload",
+    "typing_extensions.overload",
+]
+
+# Do not require documenting *args/**kwargs
+ignore-var-parameters = true
+
+# In case of custom property-like decorators, declare them here
+property-decorators = [
+    # Example placeholder:
+    # "your_package.decorators.cached_property",
+]
 ################################################################################
 # COMPLEXITY RULES
 ################################################################################
@@ -117,6 +140,11 @@ max-complexity = 10
 "tests/**" = ["D", "PLR2004", "PLR0913"]
 
 # __init__ often re-exports modules, leading to unused imports
+"__init__.py" = ["F401"]
+
+"scripts/**" = ["D"]
+"migrations/**" = ["D"]
+"alembic/**" = ["D"]
 "__init__.py" = ["F401"]
 
 ################################################################################
