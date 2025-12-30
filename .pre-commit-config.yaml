@@ -20,3 +20,11 @@ repos:
       - id: check-merge-conflict
       - id: check-yaml
       - id: check-toml
+
+  # Markdown formatting
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.17
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-gfm==0.3.6

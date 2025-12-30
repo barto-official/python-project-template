@@ -1,0 +1,71 @@
+site_name: Your Package
+site_description: Project documentation
+repo_url: https://github.com/your-org/your-repo
+repo_name: your-org/your-repo
+# site_url: https://<org-or-user>.github.io/<repo>/
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - content.code.copy
+    - toc.follow
+    - search.highlight
+    - search.suggest
+
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - footnotes
+  - tables
+  - pymdownx.inlinehilite
+  - toc:
+      permalink: true
+
+
+plugins:
+  - search
+  - autorefs
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+              docstring_style: google
+              show_source: true
+              show_root_heading: true
+              show_root_full_path: false
+
+              # Rendering consistency
+              heading_level: 2
+              separate_signature: true
+              show_signature_annotations: true
+              signature_crossrefs: true
+
+              # Member rendering controls
+              show_members: true
+              members_order: source
+              filters:
+                - "!^_"          # hide private members by default
+              inherited_members: false
+  - git-revision-date-localized:
+      type: date
+      fallback_to_build_date: true
+  - redirects:
+      redirect_maps: { }
+  - minify:
+      minify_html: true
+
+nav:
+  - Home: index.md
+  - Guides:
+      - Getting started: guides/getting_started.md
+  - Reference:
+      - Overview: reference/index.md
+      - my-package: reference/my-package.md
+

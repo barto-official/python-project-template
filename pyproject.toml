@@ -10,10 +10,32 @@ dependencies = []
 
 [dependency-groups]
 dev = [
-  "ruff>=0.6",
-  "mypy>=1.10",
-  "pytest>=8.2",
+    "ruff>=0.6",
+    "mypy>=1.10",
+    "pytest>=8.2",
 ]
+docs = [
+  "mkdocs>=1.6",
+  "mkdocs-material>=9.5",
+  "mkdocstrings[python]>=0.25",
+  "pymdown-extensions>=10.8",
+    "mkdocs-autorefs>=1.0",
+    "mkdocs-git-revision-date-localized-plugin>=1.2",
+  "mkdocs-minify-plugin>=0.8",
+  "mkdocs-redirects>=1.2",
+
+  "mike>=2.1",
+
+  "mdformat>=0.7",
+  "mdformat-gfm>=0.3",
+
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 ################################################################################
 # RUFF CONFIGURATION
@@ -114,3 +136,7 @@ docstring-code-format = true
 
 [tool.ruff.lint.isort]
 known-first-party = ["src"]
+
+[tool.mdformat]
+wrap = 100
+number = true
