@@ -89,6 +89,7 @@ extend-select = [
     "D205", # blank line between summary and description
     "D300", # triple double quotes
     "D400", # period at end of summary
+    "D401", # Imperative mood
 ]
 
 # Ignore overly strict or noisy rules used by many teams
