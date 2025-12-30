@@ -91,10 +91,20 @@ How will we know this works (or fails) in production?
 List documentation updates required and their status.
 -->
 
-- [ ] README / user-facing docs
-- [ ] API docs / OpenAPI spec
-- [ ] Internal design docs / ADRs
-- [ ] Runbooks / operational docs
+Does this PR change any of the following?
+- [ ] Public APIs or contracts
+- [ ] Error handling or failure modes
+- [ ] Configuration or defaults
+- [ ] Performance characteristics
+- [ ] Operational behavior
+
+Documentation updates:
+- [ ] Docstrings updated
+- [ ] Reference docs updated
+- [ ] Guides/runbooks updated
+- [ ] No documentation changes required (explain below)
+
+Explanation: 
 
 ## Checklist
 
