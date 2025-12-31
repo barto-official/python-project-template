@@ -41,7 +41,6 @@ jobs:
             --timeout 20
             --max-retries 2
             --accept 200,204,206
-            --exclude-mail
             --exclude "http://localhost"
             --exclude "http://127.0.0.1"
             docs/**/*.md README.md
@@ -50,6 +49,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+            fetch-depth: 0  # Fetch all history for accurate pre-commit checks
 
       - uses: actions/setup-python@v5
         with:

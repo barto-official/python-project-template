@@ -1,8 +1,8 @@
 site_name: Your Package
 site_description: Project documentation
-repo_url: {REPO_URL}
-repo_name: {YOUR_REPO}
-edit_uri:
+repo_url: "REPO_URL"
+repo_name: "YOUR_REPO"
+edit_uri: "uri" # e.g., "edit/main/docs/"
 
 theme:
   palette:

@@ -16,6 +16,7 @@ from typing import (
     Any,
     TypeVar,
 )
+import time
 
 T = TypeVar("T")
 K = TypeVar("K")
@@ -136,40 +137,6 @@ def merge_maps(*maps: Mapping[K, V], conflict: str = "right") -> dict[K, V]:
 
     return out
 
-
-def parse_kv(text: str, *, item_sep: str = ",", kv_sep: str = "=") -> dict[str, str]:
-    """Parse a simple key-value string like ``"a=1,b=2"`` into a dict.
-
-    Args:
-        text: Input text.
-        item_sep: Separator between items.
-        kv_sep: Separator between key and value.
-
-    Returns:
-        Dict mapping keys to values, both as strings.
-
-    Raises:
-        ValidationError: If an item does not contain the key/value separator.
-
-    Notes:
-        This parser does not handle escaping or quoting; it is designed purely
-        for documentation tests.
-    """
-    if not text.strip():
-        return {}
-
-    out: dict[str, str] = {}
-    for raw in text.split(item_sep):
-        raw = raw.strip()
-        if not raw:
-            continue
-        if kv_sep not in raw:
-            raise ValidationError(f"Missing '{kv_sep}' in item: {raw!r}")
-        k, v = raw.split(kv_sep, 1)
-        out[k.strip()] = v.strip()
-    return out
-
-
 def utc_now() -> datetime:
     """Return the current UTC timestamp (timezone-aware).
 
@@ -266,8 +233,6 @@ class TTLCache(Iterable[tuple[str, Any]]):
             value: Value to store.
             now: Override the clock for tests (epoch seconds).
         """
-        import time
-
         ts = time.time() if now is None else now
         self._data[key] = (ts, value)
 
@@ -282,8 +247,6 @@ class TTLCache(Iterable[tuple[str, Any]]):
         Returns:
             Cached value or `default`.
         """
-        import time
-
         ts_now = time.time() if now is None else now
         if key not in self._data:
             self.stats.misses += 1
@@ -307,15 +270,13 @@ class TTLCache(Iterable[tuple[str, Any]]):
         Returns:
             Number of entries removed.
         """
-        import time
-
         ts_now = time.time() if now is None else now
         to_delete = [k for k, (ts, _) in self._data.items() if (ts_now - ts) > self._ttl]
         for k in to_delete:
             self._data.pop(k, None)
         return len(to_delete)
 
-    def __iter__(self) -> Iterator[tuple[str, Any]]:
+    def __iter__(self) -> Iterator[tuple[str, Any]]: # noqa: D
         """Iterate over unexpired items as ``(key, value)`` pairs."""
         # Note: intentionally not purging; docs can describe this nuance.
         for k, (_, v) in self._data.items():
@@ -413,9 +374,6 @@ class TaskManager:
 
         Returns:
             The updated `Task`.
-
-        Raises:
-            IndexError: If `index` is out of range.
         """
         t = self._tasks[index]
         t.done = True
