@@ -72,34 +72,36 @@ markdown_extensions:
 
 
 plugins:
-  - search
-  - autorefs
-  - mkdocstrings:
+  - search                     # Enables MkDocs built-in full-text search
+  - autorefs                   # Automatically creates cross-references for headings and objects
+  - mkdocstrings:              # Plugin for generating documentation from docstrings
       handlers:
-        python:
+        python:                # Use the Python handler for Python source code
           options:
-              docstring_style: google
-              show_source: true
-              show_root_heading: true
-              show_root_full_path: false
+              docstring_style: google          # Parse docstrings written in Google style
+              show_source: true                # Display a link or block showing the source code
+              show_root_heading: true          # Render a heading for the documented root object
+              show_root_full_path: false       # Do not display the full module path in the root heading
 
               # Rendering consistency
-              heading_level: 2
-              separate_signature: true
-              show_signature_annotations: true
-              signature_crossrefs: true
+              heading_level: 2                 # Base heading level used for generated sections
+              separate_signature: true         # Render function/class signatures on a separate line
+              show_signature_annotations: true # Include type annotations in signatures
+              signature_crossrefs: true        # Enable cross-references inside type annotations
 
               # Member rendering controls
-              show_members: true
-              members_order: source
+              show_members: true               # Render class and module members
+              members_order: source            # Order members as they appear in the source file
               filters:
-                - "!^_"          # hide private members by default
-              inherited_members: false
+                - "!^_"                        # Exclude members whose names start with "_" (private)
+              inherited_members: false         # Do not include inherited members from base classes
+              # Docstring content control
+              show_if_no_docstring: false        # Hide undocumented members
   - git-revision-date-localized:
       enable_creation_date: true
       type: date
       fallback_to_build_date: true
-  # Show git commiters of the code. Requires git-committers plugin installation and Github Token.
+  # Show git committers of the code. Requires git-committers plugin installation and Github Token.
   # Alternative: mkdocs-git-authors-plugin
   #- git-committers:
   #    repository: squidfunk/mkdocs-material

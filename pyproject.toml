@@ -102,9 +102,9 @@ extend-select = [
     #"DOC101",# not yet implemented
      "DOC102",
     #"DOC104", #not yet implemented
-    "DOC201",
-    "DOC501",
-    "DOC502",
+    "DOC201", # missing attribute docstring
+    "DOC501", # missing parameter type
+    "DOC502", # missing return type
 ]
 
 # Ignore overly strict or noisy rules used by many teams

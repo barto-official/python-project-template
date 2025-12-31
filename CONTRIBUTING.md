@@ -337,14 +337,12 @@ If your change may impact performance:
 
 ## Documentation
 
-Documentation is managed mainly by [Material MkDocs](https://squidfunk.github.io/mkdocs-material/). All settings can
+Documentation is managed by [Material MkDocs](https://squidfunk.github.io/mkdocs-material/). All settings can
 be found in `mkdocs.yml`. The documentation source files are located in the `docs/` folder. The documentation consists
 of three main pillars:
 * `README.md` as a entry gate.
-* `docs/` for markdown in-depth guides (architecture and general guides)
+* `docs/` for markdown in-depth guides (architecture, how-tos, general guides)
 * Docstrings following [**Google Style Convention**](https://google.github.io/styleguide/pyguide.html).
-
-Public Reference and Markdowns are built using MkDocs and mkdocstrings and published to [INSERT LOCATION, E.G., `https://your-project-docs.com`]. Linting and pre-commit hooks include checks for markdown files and docstrings.
 
 **Expectations**
 * Docstrings are mandatory for all public APIs (classes, methods, functions, modules).
@@ -352,6 +350,14 @@ Public Reference and Markdowns are built using MkDocs and mkdocstrings and publi
 * Add module to the `/docs/reference/{MY-PACKAGE}` folder for every public module/package.
 * Update `README.md` if user-facing behavior changes.
 * Add or update markdown documents in `/docs` for every new or updated features, configuration, or APIs.
+
+**How Documentation Build is Implemented**
+
+Public Reference and Markdowns are built using Material MkDocs and mkdocstrings and published to 
+[INSERT LOCATION, E.G., `https://your-project-docs.com`]. 
+Docstrings are checked using Ruff (`pyproject.toml`), validation rules from `mkdocs.yml`, and 
+pre-commit hooks of `codespell`. Markdown files are linted using `mdformat` and `codespell` (both in pre-commit hooks).
+
 
 ---
 

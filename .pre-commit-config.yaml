@@ -39,6 +39,7 @@ repos:
     rev: 0.7.17
     hooks:
       - id: mdformat
+        exclude: ^CONTRIBUTING\.md$
         additional_dependencies:
           - mdformat-gfm==0.3.6
   # Spell checking (codespell)
