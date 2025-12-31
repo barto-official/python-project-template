@@ -94,7 +94,7 @@ You can contribute by:
 - Fixing issues labeled `good first issue` or `help wanted`
 - Improving performance, observability, accessibility, or developer experience
 
-> ### Legal Notice 
+> ### Legal Notice
 > When contributing to this project, you must agree that you have authored 100% of the content, that you have the necessary rights to the content and that the content you contribute may be provided under the project license.
 
 ---
@@ -119,7 +119,7 @@ A good bug report shouldn't leave others needing to chase you up for more inform
 ### How Do I Submit a Good Bug Report?
 
 > You must never report security related issues, vulnerabilities or bugs including sensitive information to the issue tracker, or elsewhere in public. Instead sensitive bugs must be sent by email to <>.
-> 
+>
 We use GitHub issues to track bugs and errors. If you run into an issue with the project:
 
 - Open an [Issue](/issues/new). (Since we can't be sure at this point whether it is a bug or not, we ask you not to talk about a bug yet and not to label the issue.)
@@ -136,7 +136,7 @@ Once it's filed:
 
 ### Bug Triage
 
-This sections explains how bug triaging is done for your project. Help beginners by including examples to good bug reports and providing them questions they should look to answer. 
+This sections explains how bug triaging is done for your project. Help beginners by including examples to good bug reports and providing them questions they should look to answer.
 
 You can help report bugs by filing them here:
 
@@ -176,7 +176,7 @@ Enhancement suggestions are tracked as [GitHub issues](/issues).
 - Use a **clear and descriptive title** for the issue to identify the suggestion.
 - Provide a **step-by-step description of the suggested enhancement** in as many details as possible.
 - **Describe the current behavior** and **explain which behavior you expected to see instead** and why. At this point you can also tell which alternatives do not work for you.
-- You may want to **include screenshots and animated GIFs** which help you demonstrate the steps or point out the part which the suggestion is related to. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) on Linux. 
+- You may want to **include screenshots and animated GIFs** which help you demonstrate the steps or point out the part which the suggestion is related to. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) on Linux.
 - **Explain why this enhancement would be useful** to most CONTRIBUTING.md users. You may also want to point out the other projects that solved it better and which could serve as inspiration.
 
 ---
@@ -295,7 +295,7 @@ For breaking changes:
 * Keep the subject line concise (ideally under ~72 characters)
 * Explain “why” in the body when needed
 --->
-  
+
 ---
 
 ## Testing and Quality
@@ -337,20 +337,21 @@ If your change may impact performance:
 
 ## Documentation
 
-Documentation is managed mainly by [Material MkDocs](https://squidfunk.github.io/mkdocs-material/). All settings can 
-be found in `mkdocs.yml`. The documentation source files are located in the `docs/` folder. The documentation consists 
+Documentation is managed mainly by [Material MkDocs](https://squidfunk.github.io/mkdocs-material/). All settings can
+be found in `mkdocs.yml`. The documentation source files are located in the `docs/` folder. The documentation consists
 of three main pillars:
-* `README.md` as a entry gate. 
+* `README.md` as a entry gate.
 * `docs/` for markdown in-depth guides (architecture and general guides)
 * Docstrings following [**Google Style Convention**](https://google.github.io/styleguide/pyguide.html).
 
-Public Reference and Markdowns are built using MkDocs and mkdocstrings and published to [INSERT LOCATION, E.G., `https://your-project-docs.com`]. Linting and pre-commit hooks include checks for markdown files and docstrings. 
+Public Reference and Markdowns are built using MkDocs and mkdocstrings and published to [INSERT LOCATION, E.G., `https://your-project-docs.com`]. Linting and pre-commit hooks include checks for markdown files and docstrings.
 
 **Expectations**
-* Update `README.md` if user-facing behavior changes.
 * Docstrings are mandatory for all public APIs (classes, methods, functions, modules).
-* Add or update docs for every new or updated features, configuration, or APIs.
 * Provide examples (minimal and runnable) when applicable.
+* Add module to the `/docs/reference/{MY-PACKAGE}` folder for every public module/package.
+* Update `README.md` if user-facing behavior changes.
+* Add or update markdown documents in `/docs` for every new or updated features, configuration, or APIs.
 
 ---
 
@@ -413,7 +414,7 @@ Include:
 * Impact assessment
 * Suggested mitigations (if any)
 --->
-  
+
 ---
 
 ## Licensing

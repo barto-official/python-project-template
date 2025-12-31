@@ -2,7 +2,7 @@
 
 # Project Name
 
-Short description (one sentence).  
+Short description (one sentence).
 What does it do? Who is it for? What problem does it solve?
 
 ## Overview
@@ -17,12 +17,11 @@ Provide a 3–5 sentence explanation of the project.
 Example:
 This service ingests user activity data from various sources, processes it in real-time, and exposes analytics over a HTTP API.
 
----
+______________________________________________________________________
 
 ## Table of Contents (make sure it contains links)
 
-
----
+______________________________________________________________________
 
 ## Features
 
@@ -38,11 +37,12 @@ List production-relevant features:
 - Configuration via environment variables
 - Fully tested (unit + integration)
 
----
+______________________________________________________________________
 
 ## Architecture
 
 ### High-level architecture
+
 Explain how the system is organized:
 
 - API layer
@@ -65,26 +65,25 @@ flowchart LR
 
 ## Tech Stack
 
--   **Language:** Python 3.12
-    
--   **Framework:** FastAPI
-    
--   **Database:** PostgreSQL
-    
--   **Messaging:** Kafka / Redis Streams
-    
--   **Caching:** Redis
-    
--   **Infrastructure:** Docker, Docker Compose
-    
--   **CI/CD:** GitHub Actions
-    
--   **Testing:** pytest
-    
--   **Logging:** Structlog / standard logging
-    
--   **Config:** Pydantic Settings
-    
+- **Language:** Python 3.12
+
+- **Framework:** FastAPI
+
+- **Database:** PostgreSQL
+
+- **Messaging:** Kafka / Redis Streams
+
+- **Caching:** Redis
+
+- **Infrastructure:** Docker, Docker Compose
+
+- **CI/CD:** GitHub Actions
+
+- **Testing:** pytest
+
+- **Logging:** Structlog / standard logging
+
+- **Config:** Pydantic Settings
 
 ## Getting Started
 
@@ -92,9 +91,9 @@ This project is managed with `uv` + `pyproject.toml`. Dependencies are locked in
 
 ### Requirements
 
--   Python >= 3.12
--   Docker / Docker Compose
--   `uv`
+- Python >= 3.12
+- Docker / Docker Compose
+- `uv`
 
 ### Install `uv`
 
@@ -173,18 +172,18 @@ Type-check (if you use mypy):
 ```bash
 uv run mypy .
 ```
----
+
+______________________________________________________________________
 
 ## Configuration
 
 Explain how configuration is loaded:
 
--   `.env` files
-    
--   `settings.toml`
-    
--   Pydantic Settings
-    
+- `.env` files
+
+- `settings.toml`
+
+- Pydantic Settings
 
 Example:
 
@@ -192,114 +191,102 @@ Example:
 
 Point to `config/settings.py`.
 
----
+______________________________________________________________________
 
 ## Running the App
 
 ### Run API
 
-
 `uvicorn project_name.app.main:app --reload`
 
 ### Run tests
-
 
 `pytest -q`
 
 ### Run linting
 
-
 `ruff check .`
 
----
+______________________________________________________________________
 
 ## Project Structure
 
 Explain your directory layout:
 
-
 `project/ ├── src/ │   └── project_name/ │       ├── app/ │       ├── core/ config/ ├── infra/ ├── docs/ ├── scripts/ └── pyproject.toml`
 
-
----
+______________________________________________________________________
 
 ## API Reference
 
 If you use FastAPI:
 
--   Auto-generated Swagger: `/docs`
-    
--   OpenAPI schema available at: `/openapi.json`
-    
+- Auto-generated Swagger: `/docs`
+
+- OpenAPI schema available at: `/openapi.json`
 
 You can also include example payloads.
 
----
+______________________________________________________________________
 
 ## Development Guidelines
 
 ### Code Style
 
--   Follows PEP-8
-    
--   Ruff formatting and linting
-    
--   Typing enforced with mypy
-    
+- Follows PEP-8
+
+- Ruff formatting and linting
+
+- Typing enforced with mypy
 
 ### Commit Messages
 
--   Conventional Commits
+- Conventional Commits
 
 `feat: add new ingestion endpoint fix: correct timestamp parsing`
 
 ### Branching
 
--   `main` = stable
-    
--   `dev` = development
-    
--   feature branches = `feature/...`
-    
+- `main` = stable
+
+- `dev` = development
+
+- feature branches = `feature/...`
 
 ### Testing Strategy
 
--   Unit tests per domain
-    
--   Integration tests for DB + API
-    
--   End-to-end tests optionally
-    
+- Unit tests per domain
 
----
+- Integration tests for DB + API
+
+- End-to-end tests optionally
+
+______________________________________________________________________
 
 ## Versioning & Releases
 
--   Semantic Versioning (SemVer)
-    
--   See `CHANGELOG.md`
-    
--   Releases are tagged as `vX.Y.Z`
-    
+- Semantic Versioning (SemVer)
 
----
+- See `CHANGELOG.md`
+
+- Releases are tagged as `vX.Y.Z`
+
+______________________________________________________________________
 
 ## Roadmap
 
 List upcoming features or tasks:
 
--    Add async ingestion worker
-    
--    Implement observability dashboard (Prometheus/Grafana)
-    
--    Introduce gRPC interface
-    
--    Deploy to Kubernetes
-    
+- Add async ingestion worker
 
----
+- Implement observability dashboard (Prometheus/Grafana)
+
+- Introduce gRPC interface
+
+- Deploy to Kubernetes
+
+______________________________________________________________________
 
 ## License
 
-MIT / BSD / Apache-2.0  
-
+MIT / BSD / Apache-2.0

@@ -49,7 +49,6 @@ theme:
     #- navigation.instant # enable instant loading for internal links. You must set site_url when using instant navigation
     - navigation.instant.prefetch # prefetch pages when user hovers over links
     - navigation.instant.progress # progress bar for loading the page
-    - navigation.top
     - content.code.copy
     - toc.follow # highlight the current section in the table of contents
     - toc.integrate # integrate the table of contents into the sidebar (right side)
@@ -75,7 +74,6 @@ markdown_extensions:
 plugins:
   - search
   - autorefs
-  - offline
   - mkdocstrings:
       handlers:
         python:
@@ -117,10 +115,13 @@ nav:
       - Getting started: guides/getting_started.md
   - Reference:
       - Overview: reference/index.md
-      - my-package: reference/my-package.md
+      - my_package: reference/my_package.md
 
 validation:
-  omitted_files: warn
-  absolute_links: warn
-  unrecognized_links: warn
-  anchors: warn
+  nav:
+    omitted_files: warn
+    absolute_links: warn
+  links:
+    anchors: warn
+    absolute_links: warn
+    unrecognized_links: warn

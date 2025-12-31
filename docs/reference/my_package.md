@@ -2,4 +2,4 @@
 
 ## example.add
 
-::: my-package.hello.add
+::: my_package.hello

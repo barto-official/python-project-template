@@ -92,6 +92,7 @@ List documentation updates required and their status.
 -->
 
 Does this PR change any of the following?
+
 - [ ] Public APIs or contracts
 - [ ] Error handling or failure modes
 - [ ] Configuration or defaults
@@ -99,12 +100,13 @@ Does this PR change any of the following?
 - [ ] Operational behavior
 
 Documentation updates:
+
 - [ ] Docstrings updated
 - [ ] Reference docs updated
 - [ ] Guides/runbooks updated
 - [ ] No documentation changes required (explain below)
 
-Explanation: 
+Explanation:
 
 ## Checklist
 

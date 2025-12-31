@@ -1,6 +1,19 @@
+default_language_version:
+  python: python3.11
+
+exclude: |
+  (?x)^(
+    site/|
+    \.venv/|
+    venv/|
+    docs/_build/|
+    dist/|
+    build/
+  )
+
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.4   # Use the latest stable version
+    rev: v0.14.1
     hooks:
       # 1. Ruff linting + autofix (includes import sorting)
       - id: ruff
@@ -28,3 +41,9 @@ repos:
       - id: mdformat
         additional_dependencies:
           - mdformat-gfm==0.3.6
+  # Spell checking (codespell)
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.3.0
+    hooks:
+      - id: codespell
+        args: [ "--config", ".codespellrc" ]

@@ -1,10 +1,4 @@
---->
-name: "Feature request"
-about: "Suggest a new feature or enhancement"
-title: "[Feature] "
-labels: ["type:feature"]
-assignees: []
----
+## ---> name: "Feature request" about: "Suggest a new feature or enhancement" title: "\[Feature\] " labels: \["type:feature"\] assignees: \[\]
 
 ## 1. Summary
 
