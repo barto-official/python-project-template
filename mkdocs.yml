@@ -1,8 +1,8 @@
 site_name: Your Package
 site_description: Project documentation
-repo_url: https://github.com/squidfunk/mkdocs-material
-repo_name: squidfunk/mkdocs-material
-edit_uri: edit/main/docs/
+repo_url: {REPO_URL}
+repo_name: {YOUR_REPO}
+edit_uri:
 
 theme:
   palette:
@@ -90,7 +90,7 @@ plugins:
               signature_crossrefs: true        # Enable cross-references inside type annotations
 
               # Member rendering controls
-              show_members: true               # Render class and module members
+              members: true               # Render class and module members
               members_order: source            # Order members as they appear in the source file
               filters:
                 - "!^_"                        # Exclude members whose names start with "_" (private)
