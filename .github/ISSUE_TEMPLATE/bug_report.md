@@ -1,10 +1,4 @@
---->
-name: "Bug report"
-about: "Report a defect or unexpected behavior"
-title: "[Bug] "
-labels: ["type:bug"]
-assignees: []
----
+## ---> name: "Bug report" about: "Report a defect or unexpected behavior" title: "\[Bug\] " labels: \["type:bug"\] assignees: \[\]
 
 ## 1. Summary
 
@@ -32,10 +26,8 @@ Example:
    -->
 
 4.
-
-5.
-
-6.
+1.
+1.
 
 ## 3. Expected Behavior
 
@@ -66,10 +58,10 @@ Please provide as much relevant detail as possible.
 - OS: (e.g. Ubuntu 22.04, macOS 14)
 -->
 
-* Environment:
-* Version/Commit:
-* Runtime:
-* OS:
+- Environment:
+- Version/Commit:
+- Runtime:
+- OS:
 
 ## 6. Impact and Severity
 
@@ -81,8 +73,8 @@ How severe is this issue?
 - Is there a known workaround?
 -->
 
-* Severity: (e.g. critical / major / minor)
-* Workaround available: Yes/No (describe if Yes)
+- Severity: (e.g. critical / major / minor)
+- Workaround available: Yes/No (describe if Yes)
 
 ## 7. Logs / Screenshots
 

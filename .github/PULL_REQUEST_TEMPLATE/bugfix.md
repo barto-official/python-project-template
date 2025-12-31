@@ -100,3 +100,26 @@ Monitoring and longer-term actions.
 - [ ] Regression tests added or expanded
 - [ ] No secrets or sensitive data committed
 - [ ] Bug is linked to issue / incident (e.g. Fixes #123)
+
+## Documentation
+
+<!--
+List documentation updates required and their status.
+-->
+
+Does this PR change any of the following?
+
+- [ ] Public APIs or contracts
+- [ ] Error handling or failure modes
+- [ ] Configuration or defaults
+- [ ] Performance characteristics
+- [ ] Operational behavior
+
+Documentation updates:
+
+- [ ] Docstrings updated
+- [ ] Reference docs updated
+- [ ] Guides/runbooks updated
+- [ ] No documentation changes required (explain below)
+
+Explanation:

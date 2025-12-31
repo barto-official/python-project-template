@@ -1,0 +1,67 @@
+name: Docs CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  docs-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install docs dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e . --group docs
+
+      - name: Build docs (strict)
+        run: |
+          mkdocs build --strict
+
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check links with Lychee
+        uses: lycheeverse/lychee-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: >
+            --no-progress
+            --verbose
+            --timeout 20
+            --max-retries 2
+            --accept 200,204,206
+            --exclude "http://localhost"
+            --exclude "http://127.0.0.1"
+            docs/**/*.md README.md
+
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+            fetch-depth: 0  # Fetch all history for accurate pre-commit checks
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dev + docs dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e . --group dev --group docs
+
+      - name: Run pre-commit (all files)
+        run: |
+          pre-commit run --all-files

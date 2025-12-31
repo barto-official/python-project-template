@@ -10,9 +10,9 @@ This project is managed with `uv` + `pyproject.toml`. Dependencies are locked in
 
 ### Requirements
 
--   Python >= 3.12
--   Docker / Docker Compose
--   `uv`
+- Python >= 3.12
+- Docker / Docker Compose
+- `uv`
 
 ### Install `uv`
 
@@ -107,16 +107,15 @@ model.run()
 
 ## Features
 
-* Feature 1
-* Feature 2
-* Feature 3
-
+- Feature 1
+- Feature 2
+- Feature 3
 
 ## API Reference
 
-* Class: `Something`
-* Function: `load_model()`
-* Function: `preprocess()`
+- Class: `Something`
+- Function: `load_model()`
+- Function: `preprocess()`
 
 ## Contributing
 
@@ -126,4 +125,3 @@ See `CONTRIBUTING.md`.
 ## License
 
 MIT / Apache-2.0
-
