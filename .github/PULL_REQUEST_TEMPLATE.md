@@ -98,6 +98,7 @@ Does this PR change any of the following?
 - [ ] Configuration or defaults
 - [ ] Performance characteristics
 - [ ] Operational behavior
+- [ ] Architecture
 
 Documentation updates:
 
@@ -105,6 +106,7 @@ Documentation updates:
 - [ ] Reference docs updated
 - [ ] Guides/runbooks updated
 - [ ] No documentation changes required (explain below)
+- [ ] Architecture-Decision Record (ADR)
 
 Explanation:
 

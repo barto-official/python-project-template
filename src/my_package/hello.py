@@ -8,6 +8,7 @@ Conventions used here are compatible with Google-style docstrings.
 
 from __future__ import annotations
 
+import time
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
@@ -16,7 +17,6 @@ from typing import (
     Any,
     TypeVar,
 )
-import time
 
 T = TypeVar("T")
 K = TypeVar("K")
@@ -136,6 +136,7 @@ def merge_maps(*maps: Mapping[K, V], conflict: str = "right") -> dict[K, V]:
                 out.setdefault(k, v)
 
     return out
+
 
 def utc_now() -> datetime:
     """Return the current UTC timestamp (timezone-aware).
@@ -276,8 +277,9 @@ class TTLCache(Iterable[tuple[str, Any]]):
             self._data.pop(k, None)
         return len(to_delete)
 
-    def __iter__(self) -> Iterator[tuple[str, Any]]: # noqa: D
+    def __iter__(self) -> Iterator[tuple[str, Any]]:  # noqa: D
         """Iterate over unexpired items as ``(key, value)`` pairs."""
+
         # Note: intentionally not purging; docs can describe this nuance.
         for k, (_, v) in self._data.items():
             yield (k, v)

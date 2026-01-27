@@ -335,7 +335,7 @@ If your change may impact performance:
 
 ---
 
-## Documentation
+## Documentation & ADR
 
 Documentation is managed by [Material MkDocs](https://squidfunk.github.io/mkdocs-material/). All settings can
 be found in `mkdocs.yml`. The documentation source files are located in the `docs/` folder. The documentation consists
@@ -353,11 +353,21 @@ of three main pillars:
 
 **How Documentation Build is Implemented**
 
-Public Reference and Markdowns are built using Material MkDocs and mkdocstrings and published to 
-[INSERT LOCATION, E.G., `https://your-project-docs.com`]. 
-Docstrings are checked using Ruff (`pyproject.toml`), validation rules from `mkdocs.yml`, and 
+Public Reference and Markdowns are built using Material MkDocs and mkdocstrings and published to
+[INSERT LOCATION, E.G., `https://your-project-docs.com`].
+Docstrings are checked using Ruff (`pyproject.toml`), validation rules from `mkdocs.yml`, and
 pre-commit hooks of `codespell`. Markdown files are linted using `mdformat` and `codespell` (both in pre-commit hooks).
 
+**Architecture Decisions Documentation**
+
+We use Architecture Decision Records to keep the log of all structurally important decisions.
+- ADRs live in-repo: `docs/adr/`
+- File format: Markdown (`.md`). Reuse the template provided (`docs\adr\template.md`)
+- Naming: `NNNN-kebab-case-title.md` (e.g., `0007-use-kafka-for-market-events.md`)
+- One ADR per decision
+- **ADRs are immutable**: modifications are not allowed (you may add UPDATE section when necessary) and are rather superseded by the new ADR
+
+Check this [guide](docs/adr/README.md) how to create ADRs.
 
 ---
 

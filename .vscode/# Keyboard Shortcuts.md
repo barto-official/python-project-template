@@ -21,4 +21,5 @@ option+up/down --> move the line
 cmd+shift+s --> Source Control
 cmd+shift+e --> Open Files
 cmd+shift+f --> Find
->p: File utils: rename/delete etc.
+
+> p: File utils: rename/delete etc.
