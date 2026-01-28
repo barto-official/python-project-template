@@ -37,10 +37,10 @@ repos:
   - repo: local
     hooks:
       - id: adr-index
-        name: Generate ADR index
-        entry: python scripts/generate_adr_index.py
+        name: Generate ADR & RFC Index
+        entry: python scripts/generate_index.py
         language: system
-        files: ^docs/architecture/adr/.*\.md$|^scripts/generate_adr_index\.py$|^docs/architecture/adr/index\.md$
+        files: ^docs/architecture/adr/.*\.md$|^scripts/generate_index\.py$|^docs/architecture/adr/index\.md$ |^docs/rfc/index\.md$
         pass_filenames: false
         stages: [ pre-commit ]
 

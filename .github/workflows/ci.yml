@@ -65,7 +65,7 @@ jobs:
         run: |
           pre-commit run --all-files
 
-  adr-index-check:
+  adr-rfc-index-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -74,14 +74,14 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Generate ADR index
+      - name: Generate ADR & RFC index
         run: |
-          python scripts/generate_adr_index.py
+          python scripts/generate_index.py
 
       - name: Fail if INDEX changed
         run: |
           if ! git diff --exit-code; then
-            echo "ADR index is stale. Run: python scripts/generate_adr_index.py and commit the result."
+            echo "ADR & RFC indices are stale. Run: python scripts/generate_index.py and commit the result."
             git diff
             exit 1
           fi
