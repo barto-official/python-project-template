@@ -22,6 +22,6 @@ body:
     id: file_link
     attributes:
       label: "2. Link to RFC File"
-      description: ""
+      description: "."
     validations:
       required: true
