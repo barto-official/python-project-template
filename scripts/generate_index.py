@@ -2,13 +2,14 @@
 from __future__ import annotations
 
 import re
+from collections.abc import Iterator
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterator
 
 # =========================
 # Configuration
 # =========================
+
 
 @dataclass(frozen=True)
 class DocTypeConfig:
@@ -19,6 +20,7 @@ class DocTypeConfig:
     end_marker: str
     title_prefix_pattern: re.Pattern[str]
     table_headers: list[str]
+
 
 DOC_TYPES: list[DocTypeConfig] = [
     DocTypeConfig(
@@ -54,6 +56,7 @@ IGNORED_FILES = {"README.md", "template.md", "index.md"}
 # Models
 # =========================
 
+
 @dataclass(frozen=True)
 class IndexedDoc:
     number: int
@@ -63,9 +66,11 @@ class IndexedDoc:
     status: str
     tags: str
 
+
 # =========================
 # Parsing helpers
 # =========================
+
 
 def clean_cell(value: str) -> str:
     v = value.strip()
@@ -75,20 +80,24 @@ def clean_cell(value: str) -> str:
         v = v[1:-1].strip()
     return v
 
+
 def parse_metadata(md: str) -> dict[str, str]:
     meta: dict[str, str] = {}
     for m in META_ROW_RE.finditer(md):
         meta[m.group("key").lower()] = clean_cell(m.group("val"))
     return meta
 
+
 def parse_title(md: str, fallback: str, prefix_re: re.Pattern[str]) -> str:
     m = H1_RE.search(md)
     title = m.group("title").strip() if m else fallback
     return prefix_re.sub("", title).strip()
 
+
 # =========================
 # Indexing pipeline
 # =========================
+
 
 def iter_docs(directory: Path) -> Iterator[Path]:
     if not directory.exists():
@@ -98,6 +107,7 @@ def iter_docs(directory: Path) -> Iterator[Path]:
             continue
         if FILENAME_RE.match(p.name):
             yield p
+
 
 def load_doc(path: Path, cfg: DocTypeConfig) -> IndexedDoc:
     md = path.read_text(encoding="utf-8")
@@ -115,6 +125,7 @@ def load_doc(path: Path, cfg: DocTypeConfig) -> IndexedDoc:
         status=meta.get("status", ""),
         tags=meta.get("tags", ""),
     )
+
 
 def generate_table(cfg: DocTypeConfig, records: list[IndexedDoc]) -> str:
     headers = cfg.table_headers
@@ -138,34 +149,30 @@ def generate_table(cfg: DocTypeConfig, records: list[IndexedDoc]) -> str:
 
     return "\n".join(lines)
 
-def replace_between_markers(
-    text: str, start: str, end: str, replacement: str
-) -> str:
+
+def replace_between_markers(text: str, start: str, end: str, replacement: str) -> str:
     if start not in text or end not in text:
         raise RuntimeError(f"Missing markers:\n{start}\n{end}")
     before, rest = text.split(start, 1)
     _, after = rest.split(end, 1)
     return f"{before}{start}\n{replacement}\n{end}{after}"
 
+
 # =========================
 # Main
 # =========================
+
 
 def update_index(cfg: DocTypeConfig) -> None:
     if not cfg.index_file.exists():
         raise RuntimeError(f"Missing index file: {cfg.index_file}")
 
-    records = [
-        load_doc(p, cfg)
-        for p in iter_docs(cfg.directory)
-    ]
+    records = [load_doc(p, cfg) for p in iter_docs(cfg.directory)]
     records.sort(key=lambda r: r.number)
 
     table = generate_table(cfg, records) if records else "_No records yet._"
     current = cfg.index_file.read_text(encoding="utf-8")
-    updated = replace_between_markers(
-        current, cfg.start_marker, cfg.end_marker, table
-    )
+    updated = replace_between_markers(current, cfg.start_marker, cfg.end_marker, table)
 
     if updated != current:
         cfg.index_file.write_text(updated, encoding="utf-8")
@@ -173,10 +180,12 @@ def update_index(cfg: DocTypeConfig) -> None:
     else:
         print(f"{cfg.name} index already up to date.")
 
+
 def main() -> int:
     for cfg in DOC_TYPES:
         update_index(cfg)
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
