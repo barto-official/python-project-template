@@ -8,8 +8,12 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to improve this project. RFC should be created via template file in `docs\rfc\`.
-        In this Issue, please link your file. For further guidance, check `docs\rfc\README.md`.
+              Please create an RFC using the template in
+              [docs/rfc](https://github.com/ORG/REPO/tree/main/docs/rfc).
+
+              In this Issue, please link your file.
+
+              See the [RFC guidelines](docs/rfc/README.md) for details.
   - type: textarea
     id: summary
     attributes:
