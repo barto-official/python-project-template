@@ -6,7 +6,7 @@ from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
 
-ADR_DIR = Path("docs/adr")
+ADR_DIR = Path("docs/architecture/adr")
 INDEX_PATH = ADR_DIR / "index.md"
 
 START_MARKER = "<!-- ADR-INDEX:START -->"

@@ -47,6 +47,10 @@ Bullet the specific commitments. For example:
 - **Assumptions:** <explicit assumptions>
 - **Non-goals:** <explicit non-goals>
 
+### Affected Architecture Views
+
+- Example: C4 Container Diagram (Orders & Billing) (reference: `\docs\architecture\diagrams\my_diagram.jpg`)
+
 ### Why this option
 
 Explain why the chosen option best satisfies the drivers. Tie explicitly to constraints/trade-offs.

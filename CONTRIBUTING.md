@@ -361,13 +361,13 @@ pre-commit hooks of `codespell`. Markdown files are linted using `mdformat` and 
 **Architecture Decisions Documentation**
 
 We use Architecture Decision Records to keep the log of all structurally important decisions.
-- ADRs live in-repo: `docs/adr/`
-- File format: Markdown (`.md`). Reuse the template provided (`docs\adr\template.md`)
+- ADRs live in-repo: `docs/architecture/adr/`
+- File format: Markdown (`.md`). Reuse the template provided (`docs/architecture/adr/template.md`)
 - Naming: `NNNN-kebab-case-title.md` (e.g., `0007-use-kafka-for-market-events.md`)
 - One ADR per decision
 - **ADRs are immutable**: modifications are not allowed (you may add UPDATE section when necessary) and are rather superseded by the new ADR
-
-Check this [guide](docs/adr/README.md) how to create ADRs.
+- Visualization is done through C4 model. All diagrams live in (`docs/architecture/diagrams/`)
+Check this [guide](docs/architecture/adr/README.md) how to create ADRs.
 
 ---
 
