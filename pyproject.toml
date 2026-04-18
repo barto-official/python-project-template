@@ -1,12 +1,27 @@
+[build-system]
+requires = ["uv_build>=0.11.7,<0.12"]
+build-backend = "uv_build"
+
 [project]
 requires-python = ">=3.11"
 name = "PROJECT_NAME"
 version = "0.1.0"
 description = "PROJECT_DESCRIPTION"
 readme = "README.md"
-license = { text = "MIT" }
-authors = [ { name = "Bartosz Rzycki", email = "bartosz.rzycki@gmail.com" }, ]
+license = "MIT"
+license-files = ["LICENSE"]authors = [ { name = "Bartosz Rzycki", email = "bartosz.rzycki@gmail.com" }, ]
 dependencies = []
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourname/my-package"
+Repository = "https://github.com/yourname/my-package"
+Documentation = "https://your-docs-site"
+Issues = "https://github.com/yourname/my-package/issues"
 
 [dependency-groups]
 dev = [
@@ -30,12 +45,16 @@ docs = [
     "mdformat>=0.7",
     "mdformat-gfm>=0.3",
 ]
+[tool.uv.build-backend]
+source-include = ["tests/**"]
+wheel-exclude = ["tests/**"]
 
-[tool.setuptools]
-package-dir = {"" = "src"}
-
-[tool.setuptools.packages.find]
-where = ["src"]
+#if using setuptools
+#[tool.setuptools]
+#package-dir = {"" = "src"}
+#packages = ["my_package"] if you want manual package discovery
+#[tool.setuptools.packages.find]
+#where = ["src"]
 
 ################################################################################
 # RUFF CONFIGURATION
