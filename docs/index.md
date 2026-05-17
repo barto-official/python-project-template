@@ -2,5 +2,7 @@
 
 Welcome. This documentation includes:
 
-- Guides (handwritten)
-- API Reference (from docstrings)# Your Project Documentation
+- Guides
+- API Reference 
+
+# Your Project Documentation

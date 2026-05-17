@@ -269,9 +269,10 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@8d55fbecc275b1c35dbe060458839f8d30439ccf # v3
 
-      - name: Build docs (strict)
+      - name: Build docs
         run: |
           uv sync --frozen --group docs
+          uv run python scripts/generate_cli_reference.py {YOUR_PACKAGE_NAME} --check
           uv run mkdocs build --strict
 
   link-check:

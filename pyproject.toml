@@ -11,7 +11,11 @@ readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [ { name = "Bartosz Rzycki", email = "bartosz.rzycki@gmail.com" }, ]
-dependencies = []
+dependencies = [
+    "platformdirs>=4.9.6",
+    "pydantic>=2.13.4",
+    "typer>=0.25.1",
+]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
@@ -36,6 +40,9 @@ docs = [
     "mkdocs>=1.6",
     "mkdocs-material>=9.5",
     "mkdocstrings[python]>=0.25",
+    "mkdocs-gen-files>=0.5",
+    "mkdocs-literate-nav>=0.6",
+    "mkdocs-section-index>=0.3",
     "pymdown-extensions>=10.8",
     "mkdocs-autorefs>=1.0",
     "mkdocs-git-revision-date-localized-plugin>=1.2",

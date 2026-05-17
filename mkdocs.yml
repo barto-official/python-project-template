@@ -1,6 +1,6 @@
 site_name: Your Package
 site_description: Project documentation
-repo_url: "REPO_URL"
+repo_url: "https://github.com/barto-official/python-project-template"
 repo_name: "YOUR_REPO"
 edit_uri: "uri" # e.g., "edit/main/docs/"
 
@@ -70,9 +70,27 @@ markdown_extensions:
   - toc:
       permalink: true
 
+# API reference generation (scripts/gen_ref_pages.py)
+extra:
+  api_reference:
+    # Top-level packages under src/ to document (one page per module).
+    packages:
+      - my_package
+    # When true: skip modules with private path segments (_name), hide _ members,
+    # and hide symbols without docstrings. Set false to document everything found.
+    public_only: true
+    # CLI is documented via docs/reference/cli.md (generate_cli_reference.py), not here.
+    exclude:
+      - "re:my_package\\.cli(\\..*)?$"
 
 plugins:
   - search                     # Enables MkDocs built-in full-text search
+  - gen-files:
+      scripts:
+        - scripts/gen_ref_pages.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - section-index
   - autorefs                   # Automatically creates cross-references for headings and objects
   - mkdocstrings:              # Plugin for generating documentation from docstrings
       handlers:
@@ -101,6 +119,8 @@ plugins:
       enable_creation_date: true
       type: date
       fallback_to_build_date: true
+      exclude:
+        - reference/api/*
   # Show git committers of the code. Requires git-committers plugin installation and Github Token.
   # Alternative: mkdocs-git-authors-plugin
   #- git-committers:
@@ -114,10 +134,11 @@ plugins:
 nav:
   - Home: index.md
   - Guides:
-      - Getting started: guides/getting_started.md
+      - Getting started: guides/quickstart.md
   - Reference:
       - Overview: reference/index.md
-      - my_package: reference/my_package.md
+      - CLI Reference: reference/cli.md
+      - Python API: reference/api/
 
 validation:
   nav:

@@ -347,7 +347,8 @@ of three main pillars:
 **Expectations**
 * Docstrings are mandatory for all public APIs (classes, methods, functions, modules).
 * Provide examples (minimal and runnable) when applicable.
-* Add module to the `/docs/reference/{MY-PACKAGE}` folder for every public module/package.
+* Python API pages are generated at build time from `src/` (see `extra.api_reference` in `mkdocs.yml`); add docstrings for new public modules—no per-module Markdown stubs.
+* Regenerate CLI reference when commands change: `python scripts/generate_cli_reference.py <package>`.
 * Update `README.md` if user-facing behavior changes.
 * Add or update markdown documents in `/docs` for every new or updated features, configuration, or APIs.
 

@@ -35,7 +35,7 @@
       Note: you can set env variable **GITHUB_TOKEN** and skip it as an argument.
 
 6. Update the link — `[docs/rfc](https://github.com/ORG/REPO/tree/main/docs/rfc)` — in `.github/ISSUE_TEMPLATE/design_rfc.yml`
-7. Update the name of the package in `src/my_package/` and `docs/reference/my_package.md` and in `docs/reference/index.md`
+7. Update the package name in `src/my_package/`, `mkdocs.yml` (`extra.api_reference.packages`), and regenerate CLI docs (`python scripts/generate_cli_reference.py my_cli_package`)
 8. Update `pyproject.toml` with the information of your package. 
 9. Adjust Ruff Settings in `pyproject.toml`
 10. Remove this README.md
