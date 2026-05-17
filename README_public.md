@@ -2,7 +2,7 @@
 
 # Project-name
 
-Short description: what your library does.
+Short description: what your library does. This project contains standard library and a CLI.
 
 ## Getting Started
 
@@ -71,6 +71,55 @@ If you plan development:
 uv sync --dev
 ```
 
+### Install CLI
+
+Install the CLI as an isolated tool:
+
+```bash
+uv tool install my_tool
+
+#Alternative: install with pipx
+pipx install my_tool
+```
+
+Verify the installation:
+
+```bash
+my_tool --version
+my_tool --help
+```
+
+Install from source
+
+```bash
+git clone https://github.com/your-org/contract-check.git
+cd my_tool
+uv sync
+uv run my_tool --help
+```
+
+## Upgrade CLI
+
+If installed with `uv`:
+
+```bash
+uv tool upgrade contract-check
+
+#With pipx
+pipx upgrade contract-check
+```
+
+## Uninstall
+
+If installed with `uv`:
+
+```bash
+uv tool uninstall contract-check
+
+#with pipx
+pipx uninstall contract-check
+```
+
 ### Development
 
 Run tests:
@@ -91,6 +140,8 @@ Type-check (if you use mypy):
 ```bash
 uv run mypy .
 ```
+
+## Quickstart
 
 ## Documentation
 
