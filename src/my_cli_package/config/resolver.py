@@ -71,9 +71,7 @@ def resolve_runtime_config_with_sources(
         source_name=_source_name(project_location),
     )
 
-    cli_config = PartialConfig.model_validate(
-        _normalize_cli_overrides(cli_overrides)
-    )
+    cli_config = PartialConfig.model_validate(_normalize_cli_overrides(cli_overrides))
 
     sources_builder = _SourcesBuilder(active_profile, active_profile_source)
 

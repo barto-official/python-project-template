@@ -72,22 +72,18 @@ def merge_partial_config(
     """Merge two partial configs. Non-None values in `higher` win."""
 
     return PartialConfig(
-        output_format=higher.output_format if higher.output_format is not None else lower.output_format,
+        output_format=higher.output_format
+        if higher.output_format is not None
+        else lower.output_format,
         precision=higher.precision if higher.precision is not None else lower.precision,
         color=higher.color if higher.color is not None else lower.color,
         quiet=higher.quiet if higher.quiet is not None else lower.quiet,
         verbose=higher.verbose if higher.verbose is not None else lower.verbose,
         debug=higher.debug if higher.debug is not None else lower.debug,
         non_interactive=(
-            higher.non_interactive
-            if higher.non_interactive is not None
-            else lower.non_interactive
+            higher.non_interactive if higher.non_interactive is not None else lower.non_interactive
         ),
-        no_progress=(
-            higher.no_progress
-            if higher.no_progress is not None
-            else lower.no_progress
-        ),
+        no_progress=(higher.no_progress if higher.no_progress is not None else lower.no_progress),
         history=merge_history_config(
             lower=lower.history,
             higher=higher.history,

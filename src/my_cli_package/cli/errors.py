@@ -8,7 +8,7 @@ from typing import Any, NoReturn
 import typer
 
 from my_package.cli.context import CliContext
-from my_package.cli.output import ColorMode, OutputPolicy
+from my_package.cli.output import ColorMode
 from my_package.config.errors import ConfigurationError
 from my_package.domain.errors import DomainError
 from my_package.domain.exit_codes import ExitCode
@@ -197,9 +197,7 @@ def fail(
     code: ExitCode = ExitCode.INVALID_INPUT,
     type_: str = "invalid_input",
     details: list[ErrorDetail] | None = None,
-
 ) -> NoReturn:
-
     payload = CliErrorPayload(
         type=type_,
         message=message,
@@ -212,8 +210,7 @@ def fail(
         output_format=_get_error_output_format(context),
     )
 
-    raise typer.Exit(code=int(code)
-)
+    raise typer.Exit(code=int(code))
 
 
 def require_confirmation(
@@ -258,6 +255,7 @@ def _get_error_output_format(context: CliContext) -> str:
         return str(output_format.value)
 
     return str(output_format)
+
 
 def _normalize_color(value: str | None) -> ColorMode:
     if value is None:

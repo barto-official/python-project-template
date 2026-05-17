@@ -21,7 +21,7 @@ contract-check validate contract.yaml --format json
 
 The final output format is `json` because the CLI option has higher priority than the environment variable.
 
----
+______________________________________________________________________
 
 ## Configuration sources
 
@@ -80,7 +80,7 @@ contract-check --config ./config/prod.toml validate contract.yaml
 
 If no value is provided, the CLI uses safe defaults.
 
----
+______________________________________________________________________
 
 ## Example configuration file
 
@@ -106,7 +106,7 @@ schema = "analytics"
 strict = true
 ```
 
----
+______________________________________________________________________
 
 ## `pyproject.toml` configuration
 
@@ -128,7 +128,7 @@ Use `pyproject.toml` when the configuration belongs to the repository.
 
 Use `~/.config/contract-check/config.toml` when the configuration belongs to the user.
 
----
+______________________________________________________________________
 
 ## Supported settings
 
@@ -144,7 +144,7 @@ Use `~/.config/contract-check/config.toml` when the configuration belongs to the
 | `color`           | enum       |    `auto` | Color mode: `auto`, `always`, `never`. |
 | `timeout_seconds` | integer    |      `30` | External request timeout.              |
 
----
+______________________________________________________________________
 
 ## Environment variables
 
@@ -170,7 +170,7 @@ CONTRACT_CHECK_OUTPUT_FORMAT=json \
 contract-check validate contract.yaml
 ```
 
----
+______________________________________________________________________
 
 ## Secrets
 
@@ -210,7 +210,7 @@ unless explicitly requested.
 
 ⚠️ Avoid passing secrets directly as command-line arguments because they may appear in shell history or process listings.
 
----
+______________________________________________________________________
 
 ## Inspecting resolved configuration
 
@@ -241,7 +241,7 @@ JSON output:
 contract-check config show --format json --show-sources
 ```
 
----
+______________________________________________________________________
 
 ## Configuration errors
 
@@ -256,7 +256,7 @@ Expected a positive integer.
 
 The command exits with code `3`.
 
----
+______________________________________________________________________
 
 ## Best practices
 
@@ -275,4 +275,3 @@ Docker
 Kubernetes
 local shell
 ```
-

@@ -8,7 +8,6 @@ from platformdirs import user_config_dir
 
 from my_package.config.errors import ConfigurationError
 
-
 ConfigKind = Literal["explicit", "project", "user"]
 
 

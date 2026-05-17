@@ -1,5 +1,3 @@
-
-
 This page documents the public command-line interface for `contract-check`.
 
 Use this reference when you need exact command syntax, options, input behavior, output behavior, and exit codes.
@@ -10,36 +8,36 @@ For a guided first run, see [Quickstart](quickstart.md).
 
 `contract-check` follows these stream conventions:
 
-| Stream | Purpose |
-|---|---|
+| Stream   | Purpose                                                             |
+| -------- | ------------------------------------------------------------------- |
 | `stdout` | Primary command result: reports, JSON, CSV, Markdown, table output. |
-| `stderr` | Diagnostics: logs, warnings, progress, prompts, debug messages. |
-| `stdin` | Optional input channel when `-` is used as the source. |
+| `stderr` | Diagnostics: logs, warnings, progress, prompts, debug messages.     |
+| `stdin`  | Optional input channel when `-` is used as the source.              |
 
 Common global options:
 
-| Option | Description |
-|---|---|
-| `--help` | Show help and exit. |
-| `--version` | Show version and exit. |
-| `--verbose`, `-v` | Enable verbose diagnostics. |
-| `--quiet`, `-q` | Suppress non-essential diagnostics. |
-| `--no-color` | Disable colored terminal output. |
-| `--config PATH` | Use a specific configuration file. |
+| Option            | Description                         |
+| ----------------- | ----------------------------------- |
+| `--help`          | Show help and exit.                 |
+| `--version`       | Show version and exit.              |
+| `--verbose`, `-v` | Enable verbose diagnostics.         |
+| `--quiet`, `-q`   | Suppress non-essential diagnostics. |
+| `--no-color`      | Disable colored terminal output.    |
+| `--config PATH`   | Use a specific configuration file.  |
 
 ## Exit codes
 
-| Code | Meaning |
-|---:|---|
-| `0` | Command completed successfully. |
-| `1` | Validation completed, but issues were found. |
-| `2` | Invalid command usage or invalid input. |
-| `3` | Configuration error. |
-| `4` | External system error, such as Databricks/API failure. |
-| `5` | Unexpected internal error. |
-| `130` | Interrupted by Ctrl+C. |
+|  Code | Meaning                                                |
+| ----: | ------------------------------------------------------ |
+|   `0` | Command completed successfully.                        |
+|   `1` | Validation completed, but issues were found.           |
+|   `2` | Invalid command usage or invalid input.                |
+|   `3` | Configuration error.                                   |
+|   `4` | External system error, such as Databricks/API failure. |
+|   `5` | Unexpected internal error.                             |
+| `130` | Interrupted by Ctrl+C.                                 |
 
----
+______________________________________________________________________
 
 ## `contract-check validate`
 
@@ -128,7 +126,7 @@ Separate result and diagnostics:
 contract-check validate contract.yaml --format json > report.json 2> debug.log
 ```
 
----
+______________________________________________________________________
 
 ## `contract-check validate-many`
 
@@ -190,7 +188,7 @@ contract-check validate-many --pattern "contracts/**/*.yaml" --format ndjson \
   | jq 'select(.status != "passed")'
 ```
 
----
+______________________________________________________________________
 
 ## `contract-check config show`
 
@@ -233,7 +231,7 @@ contract-check config show --show-sources
 
 Secret values are redacted unless explicitly requested.
 
----
+______________________________________________________________________
 
 ## `contract-check doctor`
 

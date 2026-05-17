@@ -76,7 +76,7 @@ Save diagnostics separately:
 contract-check validate contract.yaml --format json > report.json 2> debug.log
 ```
 
----
+______________________________________________________________________
 
 Example for `validate-many`:
 

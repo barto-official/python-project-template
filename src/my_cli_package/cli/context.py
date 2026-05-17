@@ -7,12 +7,8 @@ import typer
 
 from my_package.config.models import RuntimeConfig
 from my_package.config.resolver import resolve_runtime_config
-from my_package.runtime.container import RuntimeContainer
 from my_package.runtime.composition import build_runtime_container
-from my_package.config.models import RuntimeConfig
-from my_package.config.resolver import resolve_runtime_config
 from my_package.runtime.container import RuntimeContainer
-from my_package.runtime.composition import build_runtime_container
 
 
 @dataclass(frozen=True)
@@ -71,11 +67,8 @@ def build_cli_context(options: GlobalCliOptions) -> CliContext:
             "verbose": options.verbose if options.verbose else None,
             "quiet": options.quiet if options.quiet else None,
             "debug": options.debug if options.debug else None,
-            "non_interactive": (
-                options.non_interactive if options.non_interactive else None
-            ),
+            "non_interactive": (options.non_interactive if options.non_interactive else None),
             "no_progress": options.no_progress if options.no_progress else None,
-
             # Color is tri-state: None means not provided.
             "color": options.color,
         },
@@ -90,14 +83,12 @@ def build_cli_context(options: GlobalCliOptions) -> CliContext:
     )
 
 
-
 def get_cli_context(ctx: typer.Context) -> CliContext:
     """Return the initialized CLI context or fail with a programmer error."""
 
     if not isinstance(ctx.obj, CliContext):
         raise RuntimeError(
-            "CLI context was not initialized. "
-            "Ensure the root Typer callback sets `ctx.obj`."
+            "CLI context was not initialized. Ensure the root Typer callback sets `ctx.obj`."
         )
 
     return ctx.obj

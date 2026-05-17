@@ -2,7 +2,6 @@
 
 This guide helps you install the CLI and run your first commands.
 
-
 # Installation
 
 ## Requirements
@@ -16,7 +15,7 @@ Before installing the CLI, ensure you have:
   - Linux terminal
   - Windows Terminal / PowerShell
 
----
+______________________________________________________________________
 
 ## Install `uv`
 
@@ -40,7 +39,7 @@ Verify installation:
 uv --version
 ```
 
----
+______________________________________________________________________
 
 # Local Development Installation
 
@@ -77,7 +76,7 @@ Install dependencies:
 uv sync
 ```
 
----
+______________________________________________________________________
 
 # Verify Installation
 
@@ -96,7 +95,7 @@ Options:
   --help  Show this message and exit.
 ```
 
----
+______________________________________________________________________
 
 # Quickstart
 
@@ -112,7 +111,7 @@ Show help for a specific command:
 your-cli validate --help
 ```
 
----
+______________________________________________________________________
 
 # Basic Command Execution
 
@@ -134,7 +133,7 @@ Validating contracts...
 Validation completed with 1 issue.
 ```
 
----
+______________________________________________________________________
 
 # Reading Input from stdin
 
@@ -146,7 +145,7 @@ Example:
 cat contracts.txt | your-cli validate
 ```
 
----
+______________________________________________________________________
 
 # Output Formats
 
@@ -170,15 +169,15 @@ your-cli validate contracts/ --output json
 your-cli validate contracts/ --output markdown
 ```
 
----
+______________________________________________________________________
 
 # Configuration
 
 The CLI supports configuration through:
 
 1. CLI arguments
-2. Environment variables
-3. Configuration files
+1. Environment variables
+1. Configuration files
 
 Priority order:
 
@@ -192,7 +191,7 @@ Example:
 export YOUR_CLI_ENV=prod
 ```
 
----
+______________________________________________________________________
 
 # Shell Completion
 
@@ -210,7 +209,7 @@ eval "$(_YOUR_CLI_COMPLETE=bash_source your-cli)"
 eval "$(_YOUR_CLI_COMPLETE=zsh_source your-cli)"
 ```
 
----
+______________________________________________________________________
 
 # Common Development Commands
 
@@ -238,7 +237,7 @@ Build the package:
 uv build
 ```
 
----
+______________________________________________________________________
 
 # Troubleshooting
 
@@ -246,9 +245,9 @@ uv build
 
 Ensure:
 
-* the virtual environment is activated
-* the package is installed
-* the executable is on your `PATH`
+- the virtual environment is activated
+- the package is installed
+- the executable is on your `PATH`
 
 Verify:
 
@@ -256,7 +255,7 @@ Verify:
 which your-cli
 ```
 
----
+______________________________________________________________________
 
 ## Unicode / Encoding Issues
 
@@ -264,11 +263,11 @@ Use UTF-8 compatible terminals.
 
 Recommended:
 
-* Windows Terminal
-* iTerm2
-* modern Linux terminals
+- Windows Terminal
+- iTerm2
+- modern Linux terminals
 
----
+______________________________________________________________________
 
 ## Dependency Issues
 

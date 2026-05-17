@@ -133,10 +133,7 @@ def render_mapping_text(mapping: dict[str, Any]) -> str:
 
     width = max(len(str(key)) for key in mapping)
 
-    return "\n".join(
-        f"{key:<{width}}  {value}"
-        for key, value in mapping.items()
-    )
+    return "\n".join(f"{key:<{width}}  {value}" for key, value in mapping.items())
 
 
 def render_output(
