@@ -1,8 +1,13 @@
 site_name: Your Package
 site_description: Project documentation
+site_url: https://barto-official.github.io/python-project-template/
 repo_url: "https://github.com/barto-official/python-project-template"
 repo_name: "YOUR_REPO"
-edit_uri: "uri" # e.g., "edit/main/docs/"
+edit_uri: edit/main/docs/
+
+exclude_docs: |
+  architecture/adr/README.md
+  rfc/README.md
 
 theme:
   palette:
@@ -72,6 +77,8 @@ markdown_extensions:
 
 # API reference generation (scripts/gen_ref_pages.py)
 extra:
+  version:
+    provider: mike
   api_reference:
     # Top-level packages under src/ to document (one page per module).
     packages:
@@ -135,6 +142,19 @@ nav:
   - Home: index.md
   - Guides:
       - Getting started: guides/quickstart.md
+      - Configuration: guides/configuration.md
+      - Validate a file: guides/validate-a-file.md
+  - Commands:
+      - Validate: commands/validate.md
+  - Architecture:
+      - Overview: architecture.md
+      - ADRs:
+          - Overview: architecture/adr/index.md
+          - Template: architecture/adr/template.md
+          - ADR 0001: architecture/adr/0001-record-architecture-decisions.md
+  - RFC:
+      - Overview: rfc/index.md
+      - Template: rfc/template.md
   - Reference:
       - Overview: reference/index.md
       - CLI Reference: reference/cli.md

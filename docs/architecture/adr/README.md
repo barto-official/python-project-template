@@ -22,7 +22,7 @@ Create or update an ADR when a change is **structurally important** — it impac
 - interfaces (API/versioning policy, event schema/compatibility)
 - construction techniques (platforms, frameworks, tools, and even processes that, although technical in nature, might impact some aspect of the architecture)
 
-In general, these will be decisions that are **hard to reverse**.  No ADR is required for small local refactors or trivial implementation details.
+In general, these will be decisions that are **hard to reverse**. No ADR is required for small local refactors or trivial implementation details.
 
 ### Location and format
 

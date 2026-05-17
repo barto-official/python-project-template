@@ -19,7 +19,8 @@ Thank you for considering contributing to this project. All types of contributio
 - [Branching and Workflow](#branching-and-workflow)
 - [Commit Message Guidelines](#commit-message-guidelines)
 - [Testing and Quality](#testing-and-quality)
-- [Documentation](#documentation)
+- [Documentation & ADR](#documentation--adr)
+- [CI/CD and Release](#cicd-and-release)
 - [Submitting a Pull Request](#submitting-a-pull-request)
 - [Review Process](#review-process)
 - [Security Issues](#security-issues)
@@ -337,38 +338,75 @@ If your change may impact performance:
 
 ## Documentation & ADR
 
-Documentation is managed by [Material MkDocs](https://squidfunk.github.io/mkdocs-material/). All settings can
-be found in `mkdocs.yml`. The documentation source files are located in the `docs/` folder. The documentation consists
-of three main pillars:
-* `README.md` as a entry gate.
-* `docs/` for markdown in-depth guides (architecture, how-tos, general guides)
-* Docstrings following [**Google Style Convention**](https://google.github.io/styleguide/pyguide.html).
+### Documentation toolchain
 
-**Expectations**
-* Docstrings are mandatory for all public APIs (classes, methods, functions, modules).
-* Provide examples (minimal and runnable) when applicable.
-* Python API pages are generated at build time from `src/` (see `extra.api_reference` in `mkdocs.yml`); add docstrings for new public modules—no per-module Markdown stubs.
-* Regenerate CLI reference when commands change: `python scripts/generate_cli_reference.py <package>`.
-* Update `README.md` if user-facing behavior changes.
-* Add or update markdown documents in `/docs` for every new or updated features, configuration, or APIs.
+Documentation is authored with [Material MkDocs](https://squidfunk.github.io/mkdocs-material/) alongside `README.md`
+(entry point) plus guides and reference prose under `docs/`. Implementation details belong in `mkdocs.yml`; source code
+references stay in Google-style docstrings (`src/`).
 
-**How Documentation Build is Implemented**
+- Extend the dynamic Python reference by editing `extra.api_reference` (`packages`, `exclude`, `public_only`) and
+  `scripts/gen_ref_pages.py`; do not hand-maintain `reference/api/` trees.
+- Whenever the Typer CLI changes: `uv sync --group docs` then
+  `uv run python scripts/generate_cli_reference.py my_package` (loads `my_package.cli.app`).
+- When ADRs or RFC files move: `python scripts/generate_index.py` (matches CI and the `adr-index` pre-commit hook).
+- Local authoring loop:
+  ```bash
+  uv sync --group docs
+  uv run mkdocs serve
+  ```
 
-Public Reference and Markdowns are built using Material MkDocs and mkdocstrings and published to
-[INSERT LOCATION, E.G., `https://your-project-docs.com`].
-Docstrings are checked using Ruff (`pyproject.toml`), validation rules from `mkdocs.yml`, and
-pre-commit hooks of `codespell`. Markdown files are linted using `mdformat` and `codespell` (both in pre-commit hooks).
+Static checks layered on Markdown include `mdformat` (+ GFM extras), [`pymarkdown` (PyPI: `pymarkdownlnt`)](https://pypi.org/project/pymarkdownlnt/)
+against `.pymarkdown.yaml`, `codespell` (`.codespellrc`), MkDocs `--strict`, and selective executable snippets enforced by
+pytest (allow-listed docstring examples plus `pytest --markdown-docs` over `docs/guides/quickstart.md`).
 
-**Architecture Decisions Documentation**
+### Hosted documentation and versions
 
-We use Architecture Decision Records to keep the log of all structurally important decisions.
-- ADRs live in-repo: `docs/architecture/adr/`
-- File format: Markdown (`.md`). Reuse the template provided (`docs/architecture/adr/template.md`)
-- Naming: `NNNN-kebab-case-title.md` (e.g., `0007-use-kafka-for-market-events.md`)
-- One ADR per decision
-- **ADRs are immutable**: modifications are not allowed (you may add UPDATE section when necessary) and are rather superseded by the new ADR
-- Visualization is done through C4 model. All diagrams live in (`docs/architecture/diagrams/`)
-Check this [guide](docs/architecture/adr/README.md) how to create ADRs.
+Releases rebuild and publish MkDocs outputs with **Mike → `gh-pages`** (same workflow that publishes wheels). Canonical
+URLs come from `site_url` in `mkdocs.yml` (`https://barto-official.github.io/python-project-template/` today). Material’s
+Mike integration (`extra.version.provider: mike`) exposes `stable`, `latest`, and per-version selectors.
+
+### Documentation-related CI gates (`.github/workflows/ci.yml`)
+
+- `docs-build` regenerates CLI + indices, runs `mkdocs build --strict`, uploads the `mkdocs-site` artifact.
+- `link-check-internal-source` runs offline Lychee (`.lychee.toml`) over `docs/**` plus `README.md`.
+- `link-check-internal-site` downloads the MkDocs artefact and validates offline HTML links inside `site/`.
+- `link-check-external-pr` (pull requests only) follows remote URLs in changed Markdown; failures are advisory.
+- `link-check-external-main` repeats the broader external crawl on merges to `main` and fails the workflow on breakage.
+
+### Architecture decisions (ADR / RFC)
+
+- ADRs live in `docs/architecture/adr/` (see `docs/architecture/adr/template.md`).
+- Use `NNNN-kebab-topic.md` names; supersede stale decisions with newer ADRs instead of rewriting published history.
+- Store supporting diagrams beside `docs/architecture/diagrams/` when referenced.
+- Read `docs/architecture/adr/README.md` for the full authoring flow.
+
+---
+
+## CI/CD and release
+
+Automation lives under `.github/workflows/`; keep README/CONTRIBUTING notes aligned whenever jobs change.
+
+### CI workflow (`ci.yml`)
+
+- Installs reproducible tooling with `uv` (`astral-sh/setup-uv`).
+- `tests`: `uv sync --frozen --group dev` then `pytest --markdown-docs tests docs/guides/quickstart.md` across Python `3.12`
+  & `3.13`.
+- `type-check`: `mypy` on `src/my_package`.
+- Packaging + smoke jobs (`package-build`, `artifact-smoke-test`, `sdist-smoke-test`, `editable-install-smoke-test`) run
+  `uv build`, `twine check --strict`, wheel/sdist installs, and editable installs using the canonical import name
+  `my_package` with distribution metadata `my-package`.
+- Documentation + Markdown quality jobs were described earlier (`docs-build`, `link-check-*`).
+- `pre-commit`: mirrors local hooks (`uv sync --frozen --group dev --group docs` + `pre-commit run --all-files`).
+
+### Release workflow (`release.yaml`)
+
+- Runs on pushes to `main` (manual `workflow_dispatch` included) with Trusted Publisher credentials for PyPI.
+- `semantic-release` (configured via `[tool.semantic_release]` in `pyproject.toml`) bumps `project.version`, rebuilds artefacts,
+  and publishes distributions when the semantic version changes.
+- The same guarded step syncs docs dependencies, regenerates tracked Markdown outputs (`generate_cli_reference.py`,
+  `generate_index.py`), runs `mkdocs build --strict`, and executes `uv run mike deploy --push` with aliases `latest` plus
+  `stable` only for non-prerelease builds (determined via `packaging.version.Version.is_prerelease`).
+- Finish GitHub Pages setup once per repo: Pages source = **`gh-pages` branch / `/ (root)`** so Mike’s pushes become public.
 
 ---
 

@@ -38,20 +38,32 @@ repos:
     hooks:
       - id: adr-index
         name: Generate ADR & RFC Index
-        entry: python scripts/generate_index.py
+        entry: python3 scripts/generate_index.py
         language: system
-        files: ^docs/architecture/adr/.*\.md$|^scripts/generate_index\.py$|^docs/architecture/adr/index\.md$ |^docs/rfc/index\.md$
+        files: ^(docs/architecture/adr/.*\.md|scripts/generate_index\.py|docs/architecture/adr/index\.md|docs/rfc/index\.md)$
         pass_filenames: false
         stages: [ pre-commit ]
 
   # Markdown formatting
   - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.17
+    rev: 1.0.0
     hooks:
       - id: mdformat
-        exclude: ^(CONTRIBUTING\.md|docs/architecture/adr/index\.md |docs/rfc/index\.md)$
+        exclude: ^(CONTRIBUTING\.md|docs/reference/cli\.md|docs/architecture/adr/index\.md|docs/rfc/index\.md)$
         additional_dependencies:
-          - mdformat-gfm==0.3.6
+          - mdformat-gfm==1.0.0
+
+  - repo: local
+    hooks:
+      - id: pymarkdown-lint
+        name: PyMarkdown lint
+        language: python
+        additional_dependencies: ["pymarkdownlnt==0.9.37"]
+        entry: pymarkdown scan
+        args: ["docs/", "README.md", "-r", "--respect-gitignore"]
+        types: [markdown]
+        exclude: '^CONTRIBUTING\.md$|^docs/reference/cli\.md$|^docs/architecture/adr/index\.md$|^docs/rfc/index\.md$'
+        pass_filenames: false
   # Spell checking (codespell)
   - repo: https://github.com/codespell-project/codespell
     rev: v2.3.0

@@ -14,7 +14,9 @@ from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import (
+    IO,
     Any,
+    Literal,
     TypeVar,
 )
 
@@ -277,7 +279,7 @@ class TTLCache(Iterable[tuple[str, Any]]):
             self._data.pop(k, None)
         return len(to_delete)
 
-    def __iter__(self) -> Iterator[tuple[str, Any]]:  # noqa: D
+    def __iter__(self) -> Iterator[tuple[str, Any]]:
         """Iterate over unexpired items as ``(key, value)`` pairs."""
 
         # Note: intentionally not purging; docs can describe this nuance.
@@ -314,13 +316,13 @@ class FileSession:
         self.path = Path(path)
         self.mode = mode
         self.encoding = encoding
-        self.handle = None  # type: ignore[assignment]
+        self.handle: IO[str] | None = None
 
     def __enter__(self) -> FileSession:
         self.handle = Path(self.path).open(self.mode, encoding=self.encoding)
         return self
 
-    def __exit__(self, exc_type, exc, tb) -> bool:
+    def __exit__(self, exc_type: object, exc: BaseException | None, tb: object) -> Literal[False]:
         if self.handle:
             self.handle.close()
         # Returning False propagates exceptions.
@@ -422,5 +424,9 @@ class TaskManager:
         return len(self._tasks)
 
     def __iter__(self) -> Iterator[Task]:
-        """Iterate over tasks in insertion order."""
+        """Iterate over tasks in insertion order.
+
+        Returns:
+            Iterator yielding tasks from internal storage preserving insertion order.
+        """
         return iter(self._tasks)

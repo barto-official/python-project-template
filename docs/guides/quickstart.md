@@ -56,7 +56,7 @@ Create a virtual environment:
 uv venv
 ```
 
-Activate the environment.
+## Activate the environment
 
 ### macOS / Linux
 
@@ -229,6 +229,14 @@ Run tests:
 
 ```bash
 pytest
+```
+
+Exercise the public helper API (runs as part of markdown doc tests in CI):
+
+```python
+from my_package.hello import add
+
+assert add(2, 3) == 5
 ```
 
 Build the package:

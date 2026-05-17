@@ -46,7 +46,11 @@ def _is_private_module(parts: tuple[str, ...]) -> bool:
 
 
 def _is_importable_package_path(path: Path, package_root: Path) -> bool:
-    """Require __init__.py in each parent directory (skip stray namespace files)."""
+    """Return whether *path* sits under ordinary packages (directories with ``__init__.py``).
+
+    Returns:
+        ``False`` when a parent directory lacks ``__init__.py``, otherwise ``True``.
+    """
     rel = path.relative_to(package_root)
     for parent in rel.parents:
         if parent == Path():

@@ -33,11 +33,11 @@
 
    Options:
 
-   - -o  GitHub org/user (owner)
-   - -r  Repository name
-   - -b  Branch to protect (default: repo default branch)
-   - -t  Token (optional if GITHUB_TOKEN is set)
-   - -h  Show help
+   - -o GitHub org/user (owner)
+   - -r Repository name
+   - -b Branch to protect (default: repo default branch)
+   - -t Token (optional if GITHUB_TOKEN is set)
+   - -h Show help
 
    Note: you can set env variable **GITHUB_TOKEN** and skip it as an argument.
 

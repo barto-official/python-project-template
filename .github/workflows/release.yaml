@@ -76,3 +76,30 @@ jobs:
       - name: Publish to PyPI
         if: steps.vbefore.outputs.version != steps.vafter.outputs.version
         uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b # v1.14.0
+
+      - name: Configure Git for gh-pages deployments
+        if: steps.vbefore.outputs.version != steps.vafter.outputs.version
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Build and publish versioned documentation (Mike → gh-pages)
+        if: steps.vbefore.outputs.version != steps.vafter.outputs.version
+        env:
+          DISABLE_MKDOCS_2_WARNING: "true"
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          uv sync --frozen --group docs --group dev
+          VERSION="$(uv version --short)"
+          RELEASE_IS_PRE="$(uv run python -c 'import subprocess; import packaging.version as pv; v=subprocess.check_output(["uv","version","--short"], text=True).strip(); print(str(pv.Version(v).is_prerelease).lower())')"
+          uv run python scripts/generate_cli_reference.py my_package
+          uv run python scripts/generate_index.py
+          uv run mkdocs build --strict
+          if [ "$RELEASE_IS_PRE" = "true" ]; then
+            uv run mike deploy --push --update-aliases "$VERSION" latest
+          else
+            uv run mike deploy --push --update-aliases "$VERSION" latest stable
+          fi
