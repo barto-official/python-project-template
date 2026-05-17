@@ -49,7 +49,7 @@ def _is_importable_package_path(path: Path, package_root: Path) -> bool:
     """Require __init__.py in each parent directory (skip stray namespace files)."""
     rel = path.relative_to(package_root)
     for parent in rel.parents:
-        if parent == Path("."):
+        if parent == Path():
             continue
         if not (package_root / parent / "__init__.py").is_file():
             return False

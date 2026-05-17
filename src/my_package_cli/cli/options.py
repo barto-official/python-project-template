@@ -5,7 +5,6 @@ from typing import Annotated, Literal
 
 import typer
 
-
 OutputFormat = Literal["text", "json", "plain"]
 ColorMode = Literal["auto", "always", "never"]
 

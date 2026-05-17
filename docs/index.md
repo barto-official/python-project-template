@@ -3,6 +3,6 @@
 Welcome. This documentation includes:
 
 - Guides
-- API Reference 
+- API Reference
 
 # Your Project Documentation

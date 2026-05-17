@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from enum import StrEnum
 from pathlib import Path
+
 from platformdirs import user_data_dir
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -109,6 +110,7 @@ class RuntimeConfig(BaseModel):
     history_enabled: bool
     history_path: Path
     active_profile: str | None = None
+
 
 def default_history_path() -> Path:
     return Path(user_data_dir("my_package", appauthor=False)) / "history.json"

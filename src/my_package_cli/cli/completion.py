@@ -43,11 +43,7 @@ def complete_from_choices(choices: Sequence[str]) -> CompletionFn:
     normalized_choices = tuple(choices)
 
     def complete(incomplete: str) -> Iterable[str]:
-        return (
-            choice
-            for choice in normalized_choices
-            if choice.startswith(incomplete)
-        )
+        return (choice for choice in normalized_choices if choice.startswith(incomplete))
 
     return complete
 
@@ -75,7 +71,7 @@ def complete_files(
         directory = path
         prefix = ""
     else:
-        directory = path.parent if str(path.parent) else Path(".")
+        directory = path.parent if str(path.parent) else Path()
         prefix = path.name
 
     if not directory.exists() or not directory.is_dir():
@@ -105,9 +101,7 @@ def complete_profiles(incomplete: str) -> Iterable[str]:
 
     You can replace this with config-aware profile loading later.
     """
-    return complete_from_choices(("dev", "test", "staging", "prod", "ci"))(
-        incomplete
-    )
+    return complete_from_choices(("dev", "test", "staging", "prod", "ci"))(incomplete)
 
 
 def complete_output_formats(incomplete: str) -> Iterable[str]:
@@ -210,5 +204,5 @@ def complete_resource_ids(incomplete: str) -> Iterable[str]:
     # Bad: slow network call on every tab press
     ids = load_cached_resource_ids()
     return (resource_id for resource_id in ids if resource_id.startswith(incomplete))
-    
+
 """

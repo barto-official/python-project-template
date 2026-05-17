@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+
 class MyToolError(Exception):
     """Base class for expected application errors."""
 
