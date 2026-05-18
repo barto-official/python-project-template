@@ -83,7 +83,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Build and publish versioned documentation (Mike → gh-pages)
+      - name: Build and publish documentation (Mike → gh-pages)
         if: steps.vbefore.outputs.version != steps.vafter.outputs.version
         env:
           DISABLE_MKDOCS_2_WARNING: "true"

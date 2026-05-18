@@ -1,6 +1,6 @@
 # Examples
 
-This page shows common `contract-check` workflows. For complete command syntax, see [CLI Reference](commands.md).
+This page shows common `contract-check` workflows. For complete command syntax, see [CLI Reference](../commands/).
 
 ## Validate a single contract
 
