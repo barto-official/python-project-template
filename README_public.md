@@ -35,6 +35,30 @@ uv --version
 python --version
 ```
 
+## Optional extra
+
+Recommended extras:
+
+- `postgres`: enables PostgreSQL integration
+- `s3`: enables S3-backed storage
+- `cli`: installs richer command-line output and CLI helpers
+- `dev`: installs local development tools and test dependencies
+
+The `dev` extra is intended only for contributors and local development.
+End users should not normally install it.
+
+Install the base package:
+
+```bash
+pip install mypkg
+Install PostgreSQL support:
+
+pip install "mypkg[postgres]"
+Install CLI enhancements:
+
+pip install "mypkg[cli]"
+```
+
 ### Create / use a virtual environment
 
 If you do not already have a venv, create one:
@@ -76,26 +100,26 @@ uv sync --dev
 Install the CLI as an isolated tool:
 
 ```bash
-uv tool install my_tool
+uv tool install my-package
 
 #Alternative: install with pipx
-pipx install my_tool
+pipx install my-package
 ```
 
 Verify the installation:
 
 ```bash
-my_tool --version
-my_tool --help
+my-package --version
+my-package --help
 ```
 
 Install from source
 
 ```bash
-git clone https://github.com/your-org/contract-check.git
-cd my_tool
+git clone https://github.com/your-org/my-package.git
+cd my-package
 uv sync
-uv run my_tool --help
+uv run my-package --help
 ```
 
 ## Upgrade CLI
@@ -103,10 +127,10 @@ uv run my_tool --help
 If installed with `uv`:
 
 ```bash
-uv tool upgrade contract-check
+uv tool upgrade my-package
 
 #With pipx
-pipx upgrade contract-check
+pipx upgrade my-package
 ```
 
 ## Uninstall
@@ -114,10 +138,10 @@ pipx upgrade contract-check
 If installed with `uv`:
 
 ```bash
-uv tool uninstall contract-check
+uv tool uninstall my-package
 
 #with pipx
-pipx uninstall contract-check
+pipx uninstall my-package
 ```
 
 ### Development

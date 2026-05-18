@@ -8,7 +8,7 @@
 | **Tags**          | {your_tag}                                                                                             |
 | **Related**       | \<links to PRs, RFCs, incidents, docs, diagrams, tickets>                                              |
 | **Supersedes**    | \<ADR NNNN, if applicable>                                                                             |
-| **Superseded by** | \<ADR NNNN, if applicable>      <br/>                                                                  |
+| **Superseded by** | \<ADR NNNN, if applicable> <br/>                                                                       |
 
 ## 1) Context & Problem Statement
 

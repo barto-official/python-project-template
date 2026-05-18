@@ -1,6 +1,6 @@
 # Configuration Guide
 
-`contract-check` can be configured using CLI options, environment variables, and configuration files.
+`my-package` can be configured using CLI options, environment variables, and configuration files.
 
 Configuration is resolved once at startup and then passed into the application as typed settings.
 
@@ -16,7 +16,7 @@ Example:
 
 ```bash
 CONTRACT_CHECK_OUTPUT_FORMAT=markdown \
-contract-check validate contract.yaml --format json
+my-package validate contract.yaml --format json
 ```
 
 The final output format is `json` because the CLI option has higher priority than the environment variable.
@@ -32,7 +32,7 @@ CLI options are explicit per-command overrides.
 Example:
 
 ```bash
-contract-check validate contract.yaml \
+my-package validate contract.yaml \
   --profile prod \
   --format json \
   --strict
@@ -55,25 +55,25 @@ export CONTRACT_CHECK_LOG_LEVEL=debug
 Then run:
 
 ```bash
-contract-check validate contract.yaml
+my-package validate contract.yaml
 ```
 
 ### 3. Configuration file
 
 Configuration files are useful for durable project or user settings.
 
-By default, `contract-check` looks for configuration in:
+By default, `my-package` looks for configuration in:
 
 ```text
-./contract-check.toml
+./my-package.toml
 ./pyproject.toml
-~/.config/contract-check/config.toml
+~/.config/my-package/config.toml
 ```
 
 A specific config file can be provided with:
 
 ```bash
-contract-check --config ./config/prod.toml validate contract.yaml
+my-package --config ./config/prod.toml validate contract.yaml
 ```
 
 ### 4. Defaults
@@ -84,7 +84,7 @@ ______________________________________________________________________
 
 ## Example configuration file
 
-`contract-check.toml`:
+`my-package.toml`:
 
 ```toml
 [default]
@@ -113,12 +113,12 @@ ______________________________________________________________________
 For project-local configuration, you can also use:
 
 ```toml
-[tool.contract-check]
+[tool.my-package]
 profile = "dev"
 output_format = "json"
 log_level = "info"
 
-[tool.contract-check.profiles.dev]
+[tool.my-package.profiles.dev]
 workspace_host = "https://dev-workspace.cloud.databricks.com"
 catalog = "dev_catalog"
 schema = "analytics"
@@ -126,7 +126,7 @@ schema = "analytics"
 
 Use `pyproject.toml` when the configuration belongs to the repository.
 
-Use `~/.config/contract-check/config.toml` when the configuration belongs to the user.
+Use `~/.config/my-package/config.toml` when the configuration belongs to the user.
 
 ______________________________________________________________________
 
@@ -167,7 +167,7 @@ Example:
 ```bash
 CONTRACT_CHECK_PROFILE=prod \
 CONTRACT_CHECK_OUTPUT_FORMAT=json \
-contract-check validate contract.yaml
+my-package validate contract.yaml
 ```
 
 ______________________________________________________________________
@@ -190,7 +190,7 @@ Example:
 
 ```bash
 export DATABRICKS_TOKEN=...
-contract-check validate contract.yaml --profile prod
+my-package validate contract.yaml --profile prod
 ```
 
 Secret values are redacted in diagnostics:
@@ -202,8 +202,8 @@ DATABRICKS_TOKEN=********
 They are also redacted in:
 
 ```bash
-contract-check config show
-contract-check doctor
+my-package config show
+my-package doctor
 ```
 
 unless explicitly requested.
@@ -217,13 +217,13 @@ ______________________________________________________________________
 Use:
 
 ```bash
-contract-check config show
+my-package config show
 ```
 
 Show sources:
 
 ```bash
-contract-check config show --show-sources
+my-package config show --show-sources
 ```
 
 Example output:
@@ -238,7 +238,7 @@ workspace_host    ********   config: profiles.dev.workspace_host
 JSON output:
 
 ```bash
-contract-check config show --format json --show-sources
+my-package config show --format json --show-sources
 ```
 
 ______________________________________________________________________
@@ -264,7 +264,7 @@ Use project configuration for repository defaults:
 
 ```text
 pyproject.toml
-contract-check.toml
+my-package.toml
 ```
 
 Use environment variables for runtime/deployment-specific settings:

@@ -8,7 +8,7 @@ This guide helps you install the CLI and run your first commands.
 
 Before installing the CLI, ensure you have:
 
-- Python 3.11+
+- Python 3.12+
 - `uv` installed (recommended)
 - A supported terminal:
   - macOS Terminal / iTerm2
@@ -56,7 +56,7 @@ Create a virtual environment:
 uv venv
 ```
 
-Activate the environment.
+## Activate the environment
 
 ### macOS / Linux
 
@@ -229,6 +229,14 @@ Run tests:
 
 ```bash
 pytest
+```
+
+Exercise the public helper API (runs as part of markdown doc tests in CI):
+
+```python
+from my_package.hello import add
+
+assert add(2, 3) == 5
 ```
 
 Build the package:

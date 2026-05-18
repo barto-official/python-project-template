@@ -1,0 +1,18 @@
+verbose = "info"
+no_progress = true
+max_retries = 2
+timeout = 20
+
+accept = ["200", "204", "206"]
+
+exclude = [
+    "http://localhost",
+    "http://127\\.0\\.0\\.1",
+    "https://your-docs-site",
+]
+
+exclude_path = [
+    "^\\.venv/",
+]
+
+header = { "accept" = "*/*" }

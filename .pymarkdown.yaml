@@ -1,0 +1,31 @@
+# PyMarkdown linter (pypi: pymarkdownlnt — CLI command: pymarkdown).
+# Matches mdformat line width; skips generated/machine-owned Markdown (see plan).
+
+system:
+  exclude_path:
+    - "docs/reference/cli.md"
+    - "docs/architecture/adr/index.md"
+    - "docs/architecture/adr/template.md"
+    - "docs/rfc/index.md"
+    - "docs/rfc/template.md"
+    - "docs/reference/api/**"
+    - "CONTRIBUTING.md"
+
+plugins:
+  # Wrapping belongs to mdformat (wrap=100); keep PyMarkdown structural rules only here.
+  MD013:
+    enabled: false
+  # Guides use multiple H1-style sections; Material still renders fine.
+  MD025:
+    enabled: false
+  MD024:
+    enabled: false
+  # mkdocstrings/mkdocs fragments and generated stubs often skip a leading H1.
+  MD041:
+    enabled: false
+  # Typer CLI reference uses $-prefixed example commands.
+  MD014:
+    enabled: false
+  # Templates use angle-bracket placeholders tripping false-positive "HTML".
+  MD033:
+    enabled: false

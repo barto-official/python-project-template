@@ -1,8 +1,15 @@
 site_name: Your Package
 site_description: Project documentation
+site_url: https://barto-official.github.io/python-project-template/
 repo_url: "https://github.com/barto-official/python-project-template"
 repo_name: "YOUR_REPO"
-edit_uri: "uri" # e.g., "edit/main/docs/"
+edit_uri: edit/main/docs/
+
+exclude_docs: |
+  architecture/adr/README.md
+  architecture/adr/template.md
+  rfc/README.md
+  rfc/template.md
 
 theme:
   palette:
@@ -72,13 +79,15 @@ markdown_extensions:
 
 # API reference generation (scripts/gen_ref_pages.py)
 extra:
+  version:
+    provider: mike
   api_reference:
     # Top-level packages under src/ to document (one page per module).
     packages:
       - my_package
     # When true: skip modules with private path segments (_name), hide _ members,
     # and hide symbols without docstrings. Set false to document everything found.
-    public_only: true
+    public_only: false
     # CLI is documented via docs/reference/cli.md (generate_cli_reference.py), not here.
     exclude:
       - "re:my_package\\.cli(\\..*)?$"
@@ -114,7 +123,7 @@ plugins:
                 - "!^_"                        # Exclude members whose names start with "_" (private)
               inherited_members: false         # Do not include inherited members from base classes
               # Docstring content control
-              show_if_no_docstring: false        # Hide undocumented members
+              show_if_no_docstring: true        # Hide undocumented members
   - git-revision-date-localized:
       enable_creation_date: true
       type: date
@@ -135,6 +144,18 @@ nav:
   - Home: index.md
   - Guides:
       - Getting started: guides/quickstart.md
+      - Configuration: guides/configuration.md
+      - Validate a file: guides/validate-a-file.md
+  - Commands:
+      - Validate: commands/validate.md
+  # Hybrid nav (mkdocs-literate-nav): trailing slashes delegate subtree discovery.
+  # ADR/RFC markdown pages appear automatically; templates are excluded via exclude_docs.
+  - Architecture:
+      - Overview: architecture/index.md
+      - ADRs: architecture/adr/
+  - RFC:
+      - Overview: rfc/index.md
+      - RFCs: rfc/
   - Reference:
       - Overview: reference/index.md
       - CLI Reference: reference/cli.md
