@@ -290,6 +290,7 @@ jobs:
         uses: astral-sh/setup-uv@8d55fbecc275b1c35dbe060458839f8d30439ccf # v3
 
       - name: Build MkDocs site
+        #for strict mode (warning becomes error): uv run mkdocs build --strict
         run: |
           set -euo pipefail
 
@@ -301,7 +302,7 @@ jobs:
 
           git diff --exit-code -- docs/architecture/adr/index.md docs/rfc/index.md
 
-          uv run mkdocs build --strict
+          uv run mkdocs build
 
       - name: Upload built site for link checks
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

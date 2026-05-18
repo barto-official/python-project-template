@@ -8,7 +8,7 @@ This guide helps you install the CLI and run your first commands.
 
 Before installing the CLI, ensure you have:
 
-- Python 3.11+
+- Python 3.12+
 - `uv` installed (recommended)
 - A supported terminal:
   - macOS Terminal / iTerm2
