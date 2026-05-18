@@ -68,6 +68,53 @@ wheel-exclude = ["tests/**"]
 #[tool.setuptools.packages.find]
 #where = ["src"]
 
+
+################################################################################
+# Commitizen CONFIGURATION
+################################################################################
+[tool.commitizen]
+name = "cz_conventional_commits"
+version_provider = "pep621"
+version_scheme = "pep440"
+tag_format = "v$version"
+update_changelog_on_bump = false
+
+################################################################################
+# Semantic Release CONFIGURATION
+################################################################################
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+commit_parser = "conventional"
+tag_format = "v{version}"
+allow_zero_version = true
+major_on_zero = false
+commit_version_number = true
+changelog_file = "CHANGELOG.md"
+build_command = """
+uv lock
+git add uv.lock
+"""
+
+[tool.semantic_release.branches.main]
+match = "main"
+prerelease = false
+
+[tool.semantic_release.commit_parser_options]
+minor_tags = ["feat"]
+patch_tags = ["fix", "perf"]
+
+[tool.semantic_release.changelog]
+exclude_commit_patterns = [
+    '''docs(?:\\([^)]*?\\))?: .+''',
+    '''test(?:\\([^)]*?\\))?: .+''',
+    '''chore(?:\\([^)]*?\\))?: .+''',
+    '''ci(?:\\([^)]*?\\))?: .+''',
+    '''build(?:\\([^)]*?\\))?: .+''',
+    '''style(?:\\([^)]*?\\))?: .+''',
+    '''refactor(?:\\([^)]*?\\))?: .+''',
+    '''Initial [Cc]ommit.*''',
+]
+
 ################################################################################
 # RUFF CONFIGURATION
 ################################################################################
@@ -217,13 +264,3 @@ known-first-party = ["my_package"]
 [tool.mdformat]
 wrap = 100
 number = true
-
-[tool.semantic_release]
-version_toml = ["pyproject.toml:project.version"]
-build_command = "uv build"
-
-[tool.semantic_release.remote]
-type = "github"
-
-[tool.semantic_release.publish]
-dist_glob_patterns = ["dist/*"]

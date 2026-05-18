@@ -5,13 +5,14 @@
 1. Repository prepared for collaboration: [CODE_OF_CONDUCT](./CODE_OF_CONDUCT.md), [CONTRIBUTING](./CONTRIBUTING.md), [CODEOWNERS](/.github/CODEOWNERS)
 1. Documentation set-up via **mkdocs**
 1. Pre-commit and CI gates in `./github/workflows`
+1. Release and Packaging set-up (to PyPI) in `./github/workflows`
 1. [VsCode settings](./.vscode)
 
 # How To Use This Template
 
 1. Click green button "Use This Template" on the right upper corner of this repo.
 
-1. Fill next form with Your data.
+1. Fill the next form with Your data.
 
 1. Choose the README style — either for public presence or internal.
 
@@ -51,4 +52,4 @@
 
 1. Remove this README.md
 
-1. Replace all occurrences of `src/my_package` and `my_package` with the name of your package.
+1. Replace all occurrences of `src/my_package`, `my_package`, `{MY_PACKAGE}` with the name of your package.

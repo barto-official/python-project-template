@@ -14,7 +14,8 @@ skip =
   site,
   docs/site,
   .mypy_cache,
-  .ruff_cache
+  .ruff_cache,
+  pyproject.toml
 
 # Optional: maintain a project allowlist as you encounter domain words/names
 # Create a file like `.codespell-words.txt` and add: ignore-words = .codespell-words.txt
