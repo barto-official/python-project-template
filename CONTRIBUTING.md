@@ -1,10 +1,10 @@
 Thank you for considering contributing to this project. All types of contributions are encouraged and valued. See the [Table of Contents](#table-of-contents) for different ways to help and details about how this project handles them. Please make sure to read the relevant section before making your contribution. It will make it a lot easier for us maintainers and smooth out the experience for all involved. The community looks forward to your contributions. 🎉
 
-> And if you like the project, but just don't have time to contribute, that's fine. There are other easy ways to support the project and show your appreciation, which we would also be very happy about:
-> - Star the project
-> - Tweet about it
-> - Refer this project in your project's readme
-> - Mention the project at local meetups and tell your friends/colleagues
+And if you like the project, but just don't have time to contribute, that's fine. There are other easy ways to support the project and show your appreciation, which we would also be very happy about:
+- Star the project
+- Tweet about it
+- Refer this project in your project's readme
+- Mention the project at local meetups and tell your friends/colleagues
 
 
 ## Table of Contents
@@ -28,7 +28,6 @@ Thank you for considering contributing to this project. All types of contributio
 - [Getting Help](#getting-help)
 - [Code of Conduct](#code-of-conduct)
 
----
 
 ## Project Scope
 
@@ -40,7 +39,6 @@ This repository focuses on:
 
 Contributions that align with the scope are more likely to be accepted.
 
----
 
 ## Before You Start
 
@@ -54,9 +52,7 @@ Before opening a new issue or pull request:
 
 ### Discuss larger changes first
 
-For significant changes (architecture, major dependencies, breaking changes):
-
-- Open an issue labeled `type:design` (or `RFC`) and include:
+For significant changes (architecture, major dependencies, breaking changes) open an issue labeled `type:design` (or `RFC`) and include:
   - Problem statement
   - Goals and non-goals
   - Proposed approach and alternatives
@@ -64,9 +60,6 @@ For significant changes (architecture, major dependencies, breaking changes):
   - Test and rollout plan
 
 Maintainers may request an approved design before implementation.
---->
-
----
 
 ## I Have a Question
 
@@ -82,8 +75,6 @@ If you then still feel the need to ask a question and need clarification, we rec
 
 We will then take care of the issue as soon as possible.
 
-----
-
 ## I Want To Contribute
 
 You can contribute by:
@@ -98,7 +89,6 @@ You can contribute by:
 > ### Legal Notice
 > When contributing to this project, you must agree that you have authored 100% of the content, that you have the necessary rights to the content and that the content you contribute may be provided under the project license.
 
----
 
 ## Bugs
 
@@ -119,8 +109,8 @@ A good bug report shouldn't leave others needing to chase you up for more inform
 
 ### How Do I Submit a Good Bug Report?
 
-> You must never report security related issues, vulnerabilities or bugs including sensitive information to the issue tracker, or elsewhere in public. Instead sensitive bugs must be sent by email to <>.
->
+> You must never report security related issues, vulnerabilities or bugs including sensitive information to the issue tracker, or elsewhere in public. Instead sensitive bugs must be sent by email to {ADMIN_EMAIL}.
+
 We use GitHub issues to track bugs and errors. If you run into an issue with the project:
 
 - Open an [Issue](/issues/new). (Since we can't be sure at this point whether it is a bug or not, we ask you not to talk about a bug yet and not to label the issue.)
@@ -135,7 +125,7 @@ Once it's filed:
 - If the team is able to reproduce the issue, it will be marked `needs-fix`, as well as possibly other tags (such as `critical`), and the issue will be left to be [implemented by someone](#your-first-code-contribution).
 
 
-### Bug Triage
+### Bug Triage (EITHER REMOVE IF NOT NEEDED OR ADD DETAILS)
 
 This sections explains how bug triaging is done for your project. Help beginners by including examples to good bug reports and providing them questions they should look to answer.
 
@@ -145,19 +135,16 @@ You can look through the existing bugs here:
 
 You can help us diagnose and fix existing bugs by asking and providing answers for the following:
 
-Is the bug reproducible as explained?
-Is it reproducible in other environments (for instance, on different browsers or devices)?
-Are the steps to reproduce the bug clear? If not, can you describe how you might reproduce it?
-What tags should the bug have?
-Is this bug something you have run into? Would you appreciate it being looked into faster?
-You can close fixed bugs by testing old tickets to see if they are still happening.
+* Is the bug reproducible as explained?
+* Is it reproducible in other environments (for instance, on different browsers or devices)?
+* Are the steps to reproduce the bug clear? If not, can you describe how you might reproduce it?
+* What tags should the bug have?
+* Is this bug something you have run into? Would you appreciate it being looked into faster?
+* You can close fixed bugs by testing old tickets to see if they are still happening.
 
-You can update our changelog here:
+You can update our changelog here: .....
 
-You can remove duplicate bug reports by:
---->
-
----
+You can remove duplicate bug reports by: .....
 
 ## Enhancements
 
@@ -180,11 +167,9 @@ Enhancement suggestions are tracked as [GitHub issues](/issues).
 - You may want to **include screenshots and animated GIFs** which help you demonstrate the steps or point out the part which the suggestion is related to. You can use [this tool](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or [this tool](https://github.com/GNOME/byzanz) on Linux.
 - **Explain why this enhancement would be useful** to most CONTRIBUTING.md users. You may also want to point out the other projects that solved it better and which could serve as inspiration.
 
----
 
 ## Development Setup
 
----
 > Replace the commands below with your project’s actual tooling. If you support multiple options (e.g., `uv`, `poetry`, `pip`), document the preferred one first and list alternatives.
 
 ### Prerequisites
@@ -243,14 +228,12 @@ make test
 # or
 uv run pytest
 ```
---->
----
 
 ## Branching and Workflow
 
 ### Default workflow
 
-1. Create a branch from the default branch (`main` or `master`).
+1. Create a branch from the default branch (`main`)
 2. Make small, focused commits.
 3. Add tests for behavior changes.
 4. Ensure formatting and linting pass.
@@ -270,34 +253,35 @@ If you use an issue tracker, include the ticket key:
 
 * `feature/PROJ-123-short-description`
 
----
+### Commit Message Guidelines
 
-## Commit Message Guidelines
----
-Write clear, informative commit messages. Recommended formats:
+This project follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). We use **commitizen** to check whether commit message follows conventional commits.
 
-### Conventional Commits (recommended)
+Commits should follow this pattern:
 
-* `feat: add X`
-* `fix: correct Y`
-* `docs: update Z`
-* `refactor: reorganize A`
-* `test: add coverage for B`
-* `chore: update tooling`
+```markdown
+<type>[optional scope]: <description>
 
-For breaking changes:
+[optional body]
 
-* `feat!: change API for ...`
-* Include a `BREAKING CHANGE:` footer describing impact and migration.
+[optional footer(s)]
+```
+
+The commit contains the following structural elements, to communicate intent to the consumers of your library:
+
+* fix: a commit of the type fix patches a bug in your codebase (this correlates with PATCH in Semantic Versioning).
+* feat: a commit of the type feat introduces a new feature to the codebase (this correlates with MINOR in Semantic Versioning).
+* BREAKING CHANGE: a commit that has a footer BREAKING CHANGE:, or appends a ! after the type/scope, introduces a breaking API change (correlating with MAJOR in Semantic Versioning). A BREAKING CHANGE can be part of commits of any type.
+* types other than fix: and feat: are allowed, for example: chore:, ci:, docs:, style:, refactor:, perf:, test:, and others.
+* footers other than BREAKING CHANGE: <description> may be provided and follow a convention similar to git trailer format.
+* **Version bumps** match `[tool.semantic_release]` in `pyproject.toml` (parser: **`conventional`**; `[tool.semantic_release.commit_parser_options]`): **`feat`** → **minor**; **`fix`** and **`perf`** → **patch**; a **breaking change** (`BREAKING CHANGE:` footer or **`!`** after the type or scope, for example `feat!:` or `chore(api)!:`) → **major**. Any other valid conventional type only bumps the version if it includes a breaking change.
+* **Changelog**: commits listed in `[tool.semantic_release.changelog] exclude_commit_patterns` are left out of `CHANGELOG.md`—currently typical prefixes **`docs`**, **`test`**, **`chore`**, **`ci`**, **`build`**, **`style`**, and **`refactor`**, plus messages matching **`Initial commit`**. Use those types when the change should not appear in release notes
 
 ### General guidance
 
 * Use imperative mood: “Add”, “Fix”, “Improve”
 * Keep the subject line concise (ideally under ~72 characters)
 * Explain “why” in the body when needed
---->
-
----
 
 ## Testing and Quality (UPDATE FOR YOUR NEEDS)
 
@@ -307,24 +291,30 @@ For breaking changes:
 * Prefer unit tests for logic and integration tests for critical paths.
 * Tests should be deterministic and not depend on external services unless explicitly designated as integration/e2e.
 
-### Code quality checks
+### CI Expectations
 
-Before opening a PR, run:
+Pull requests and pushes to `main` must pass CI. Before you push, run the same checks locally:
 
-```bash
-make fmt
-make lint
-make test
-```
+* **Pre-commit** — Ruff (lint + format), Markdown checks, spelling, YAML/TOML sanity, ADR/RFC index regeneration, and commit-message validation (after you install the hook). We use **commitizen** to check whether commit message follows conventional commits.
+  * First time: `uv sync --group dev --group docs`, then `pre-commit install` and `pre-commit install --hook-type commit-msg` and `pre-commit install --hook-type commit-msg`.
+  * Every run: `uv run pre-commit run --all-files`.
 
-If your repo uses specific tools, list them here, for example:
+* **Tests** — `uv sync --group dev` then `uv run pytest --markdown-docs docs tests` (CI runs this on Python 3.12 and 3.13).
 
-* Formatting: [BLACK/RUFF/PRETTIER/GOFMT/...]
-* Linting: [RUFF/ESLINT/GOLANGCI-LINT/...]
-* Type checking: [MYPY/PYRIGHT/TS/...]
-* Security scanning: [BANDIT/SEMGREP/...]
-* Tests: [PYTEST/JEST/GO TEST/...]
-* Coverage: [COVERAGE.PY/NYC/...], minimum: [INSERT THRESHOLD]
+* **Type checking** — `uv sync --group dev` then `uv run mypy src/{MY_PACKAGE}`.
+
+* **Package build** — `rm -rf dist build *.egg-info && uv build` then `uv run --with twine==6.1.0 twine check --strict dist/*`.
+
+* **Docs site** — Match the docs CI job: sync docs deps, regenerate CLI reference and indexes, then build (set `DISABLE_MKDOCS_2_WARNING=true` if CI does).
+  * `uv sync --group docs`
+  * `DISABLE_MKDOCS_2_WARNING=true uv run python scripts/generate_cli_reference.py my_package --check`
+  * `uv run python scripts/generate_index.py`
+  * If `docs/architecture/adr/index.md` or `docs/rfc/index.md` changed, commit those updates.
+  * `uv run mkdocs build`
+
+* **Links** — Install the [lychee](https://github.com/lycheeverse/lychee) CLI, build `site/` as above, then run both passes CI uses:
+  * `lychee --config .lychee.toml --offline docs/ README.md site/`
+  * `lychee --config .lychee.toml site/ docs/ README.md`
 
 ### Performance considerations
 
@@ -332,9 +322,6 @@ If your change may impact performance:
 
 * Provide a benchmark or before/after numbers
 * Note changes in time/memory complexity where relevant
---->
-
----
 
 ## Documentation & ADR
 
@@ -392,7 +379,34 @@ Mike integration (`extra.version.provider: mike`) exposes `stable`, `latest`, an
 - Store supporting diagrams beside `docs/architecture/diagrams/` when referenced.
 - Read `docs/architecture/adr/README.md` for the full authoring flow.
 
----
+
+## Packaging Policy
+
+**Build backend and commands**
+
+Packaging uses uv's build backend. Use `uv build` locally and in automation. On release, **semantic-release** runs `uv lock` and commits the lockfile so installs reflect declared dependencies.
+
+**Versioning policy**
+
+Commit messages follow conventional commits. **python-semantic-release** reads that history, updates **`project.version`** in `pyproject.toml`, updates **`CHANGELOG.md`**, and tags **`v{version}`**. When it evaluates commits since the last release, it applies the **largest** bump implied by any of them (for example one `feat` and several `fix` commits still produce a **minor** release).
+
+* **Patch** — **`fix:`** (bugs) and **`perf:`** (performance).
+* **Minor** — **`feat:`** (new behavior users can rely on).
+* **Major** — **`BREAKING CHANGE:`** in the footer or **`!`** after the type or scope (e.g. `feat!:` or `chore(api)!:`). That applies on **any** type, not only `feat`.
+* **No bump** — **`docs:`**, **`chore:`**, **`ci:`**, **`build:`**, **`style:`**, **`refactor:`**, **`test:`**, etc. do not change the version unless they also declare a breaking change. Several of those patterns are **omitted from `CHANGELOG.md`** by configuration so release notes highlight fixes and features.
+
+Follow **[Commit Message Guidelines](#commit-message-guidelines)** in this document so local expectations and automation stay aligned.
+
+**Dependency policy**
+
+Only **`[project]`** dependencies are installed for people who use the published package. Other groups include:
+
+* **`dev`** — Linting, tests, git hooks, and release helpers: Ruff, mypy, pytest, pytest-markdown-docs, pre-commit, codespell,python-semantic-release.
+* **`docs`** — The MkDocs / Material site, API docs plugins, mike, mdformat, pymarkdownlnt, packaging, and related doc-only packages.
+
+**Publishing policy**
+
+PyPI updates only from the **release** workflow when the version actually changes, via **Trusted Publishing (OIDC)**. Docs deploy with Mike to `gh-pages` in the same pass, with aliases that treat stable vs prerelease.
 
 ## CI/CD and release
 
@@ -420,7 +434,6 @@ Automation lives under `.github/workflows/`; keep README/CONTRIBUTING notes alig
   `stable` only for non-prerelease builds (determined via `packaging.version.Version.is_prerelease`).
 - Finish GitHub Pages setup once per repo: Pages source = **`gh-pages` branch / `/ (root)`** so Mike’s pushes become public.
 
----
 
 ## Submitting a Pull Request
 
@@ -442,9 +455,7 @@ Include:
 2. Motivation and context
 3. How to test (commands and expected behavior)
 4. Risk/impact assessment and rollout plan (if applicable)
-5. Screenshots/logs (if UI/observability changes)
---->
----
+5. Screenshots/logs (if UI/observability changes)>
 
 ## Review Process
 
@@ -460,10 +471,8 @@ You may be asked to revise your PR. Please keep discussions constructive and foc
 
 ### Response times
 
-This is an open-source project; reviews may take time. If a PR is time-sensitive, note it explicitly in the PR description.
---->
+This is an open-source project; reviews may take time. If a PR is time-sensitive, note it explicitly in the PR description.>
 
----
 
 ## Security Issues
 
@@ -479,10 +488,8 @@ Include:
 * Affected versions
 * Reproduction steps
 * Impact assessment
-* Suggested mitigations (if any)
---->
+* Suggested mitigations (if any)>
 
----
 
 ## Licensing
 
@@ -493,18 +500,13 @@ By contributing, you agree that your contributions will be licensed under the pr
 If your organization requires a CLA/DCO, add details here:
 
 * CLA: [INSERT LINK/PROCESS]
-* DCO sign-off: [INSERT PROCESS, e.g., `git commit -s`]
---->
----
+* DCO sign-off: [INSERT PROCESS, e.g., `git commit -s`]>
 
 ## Getting Help
----
 * Documentation: [INSERT LINK OR PATH, e.g., `docs/`]
 * Issue tracker: [INSERT LINK]
 * Discussions/Chat: [INSERT LINK, e.g., GitHub Discussions/Slack/Discord]
-* Maintainers: [INSERT CONTACT OR TEAM]
---->
----
+* Maintainers: [INSERT CONTACT OR TEAM]>
 
 ## Code of Conduct
 

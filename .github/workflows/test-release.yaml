@@ -98,4 +98,4 @@ jobs:
           EXPECT_VERSION: ${{ env.BUILD_VERSION }}
         run: |
           set -euo pipefail
-          .testpypi-venv/bin/python -c "import os; from importlib.metadata import version; import my_package_test_0426; assert version('${{ env.DIST_NAME }}') == os.environ['EXPECT_VERSION']"
+          .testpypi-venv/bin/python -c "import os; from importlib.metadata import version; import {MY_PACKAGE}; assert version('${{ env.DIST_NAME }}') == os.environ['EXPECT_VERSION']"

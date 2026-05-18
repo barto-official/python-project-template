@@ -51,13 +51,16 @@ Install the base package:
 
 ```bash
 pip install mypkg
-Install PostgreSQL support:
 
+#Install PostgreSQL support:
 pip install "mypkg[postgres]"
-Install CLI enhancements:
 
+#Install CLI enhancements:
 pip install "mypkg[cli]"
 ```
+
+**Supported combinations**
+...
 
 ### Create / use a virtual environment
 
@@ -179,6 +182,23 @@ from project import Something
 model = Something()
 model.run()
 ```
+
+## Version compatibility
+
+**Supported Python versions**
+...
+
+**Supported platforms**
+...
+
+**Dependency compatibility**
+...
+
+**Upgrade expectations**
+...
+
+**Known incompatibilities**
+...
 
 ## Features
 

@@ -55,7 +55,7 @@ jobs:
 
       - name: Run mypy
         run: |
-          uv run mypy src/my_package
+          uv run mypy src/{MY_PACKAGE}
 
   package-build:
     runs-on: ubuntu-latest
@@ -174,7 +174,7 @@ jobs:
 
       - name: Smoke test import
         run: |
-          .smoke-venv/bin/python -c "import my_package"
+          .smoke-venv/bin/python -c "import {MY_PACKAGE}"
 
       - name: Smoke test installed metadata
         run: |
@@ -182,7 +182,7 @@ jobs:
 
       - name: Smoke test basic public API
         run: |
-          .smoke-venv/bin/python -c "import my_package; print(getattr(my_package, '__version__', 'no __version__ attribute'))"
+          .smoke-venv/bin/python -c "import {MY_PACKAGE}; print(getattr({MY_PACKAGE}, '__version__', 'no __version__ attribute'))"
 
   sdist-smoke-test:
     runs-on: ubuntu-latest
@@ -226,7 +226,7 @@ jobs:
 
       - name: Smoke test import from sdist install
         run: |
-          .sdist-venv/bin/python -c "import my_package"
+          .sdist-venv/bin/python -c "import {MY_PACKAGE}"
 
       - name: Smoke test installed metadata from sdist install
         run: |
@@ -234,7 +234,7 @@ jobs:
 
       - name: Show import location
         run: |
-          .sdist-venv/bin/python -c "import my_package; print(my_package.__file__)"
+          .sdist-venv/bin/python -c "import {MY_PACKAGE}; print({MY_PACKAGE}.__file__)"
 
   editable-install-smoke-test:
     runs-on: ubuntu-latest
@@ -260,7 +260,7 @@ jobs:
 
       - name: Smoke test editable import
         run: |
-          .editable-venv/bin/python -c "import my_package"
+          .editable-venv/bin/python -c "import {MY_PACKAGE}"
 
       - name: Smoke test editable installed metadata
         run: |
@@ -268,7 +268,7 @@ jobs:
 
       - name: Show editable import location
         run: |
-          .editable-venv/bin/python -c "import my_package; print(my_package.__file__)"
+          .editable-venv/bin/python -c "import {MY_PACKAGE}; print({MY_PACKAGE}.__file__)"
 
   docs-build:
     runs-on: ubuntu-latest
@@ -296,7 +296,7 @@ jobs:
 
           uv sync --frozen --group docs
 
-          uv run python scripts/generate_cli_reference.py my_package --check
+          uv run python scripts/generate_cli_reference.py {MY_PACKAGE} --check
 
           uv run python scripts/generate_index.py
 
