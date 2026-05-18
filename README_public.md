@@ -35,6 +35,30 @@ uv --version
 python --version
 ```
 
+## Optional extra
+
+Recommended extras:
+
+- `postgres`: enables PostgreSQL integration
+- `s3`: enables S3-backed storage
+- `cli`: installs richer command-line output and CLI helpers
+- `dev`: installs local development tools and test dependencies
+
+The `dev` extra is intended only for contributors and local development.
+End users should not normally install it.
+
+Install the base package:
+
+```bash
+pip install mypkg
+Install PostgreSQL support:
+
+pip install "mypkg[postgres]"
+Install CLI enhancements:
+
+pip install "mypkg[cli]"
+```
+
 ### Create / use a virtual environment
 
 If you do not already have a venv, create one:
