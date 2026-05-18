@@ -1,13 +1,13 @@
 # Commands
 
-## `contract-check validate`
+## `my-package validate`
 
 Validate a single contract from a file or stdin.
 
 ### Usage
 
 ```bash
-contract-check validate SOURCE [OPTIONS]
+my-package validate SOURCE [OPTIONS]
 ```
 
 ### Arguments
@@ -49,45 +49,45 @@ Diagnostics, warnings, progress messages, and debug logs are written to stderr.
 Validate a file:
 
 ```bash
-contract-check validate contract.yaml
+my-package validate contract.yaml
 ```
 
 Validate and write JSON:
 
 ```bash
-contract-check validate contract.yaml --format json > report.json
+my-package validate contract.yaml --format json > report.json
 ```
 
 Read from stdin:
 
 ```bash
-cat contract.yaml | contract-check validate - --format json
+cat contract.yaml | my-package validate - --format json
 ```
 
 Write Markdown report:
 
 ```bash
-contract-check validate contract.yaml --format markdown > report.md
+my-package validate contract.yaml --format markdown > report.md
 ```
 
 Save diagnostics separately:
 
 ```bash
-contract-check validate contract.yaml --format json > report.json 2> debug.log
+my-package validate contract.yaml --format json > report.json 2> debug.log
 ```
 
 ______________________________________________________________________
 
 Example for `validate-many`:
 
-## `contract-check validate-many`
+## `my-package validate-many`
 
 Validate multiple contract files.
 
 ### Usage
 
 ```bash
-contract-check validate-many SOURCES... [OPTIONS]
+my-package validate-many SOURCES... [OPTIONS]
 ```
 
 ### Arguments
@@ -116,18 +116,18 @@ contract-check validate-many SOURCES... [OPTIONS]
 Validate shell-expanded files:
 
 ```bash
-contract-check validate-many contracts/*.yaml
+my-package validate-many contracts/*.yaml
 ```
 
 Validate recursively using an app-level pattern:
 
 ```bash
-contract-check validate-many --pattern "contracts/**/*.yaml"
+my-package validate-many --pattern "contracts/**/*.yaml"
 ```
 
 Stream NDJSON and filter failed contracts:
 
 ```bash
-contract-check validate-many contracts/*.yaml --format ndjson \
+my-package validate-many contracts/*.yaml --format ndjson \
   | jq 'select(.status != "passed")'
 ```

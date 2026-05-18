@@ -299,7 +299,7 @@ For breaking changes:
 
 ---
 
-## Testing and Quality
+## Testing and Quality (UPDATE FOR YOUR NEEDS)
 
 ### Testing expectations
 
@@ -342,7 +342,7 @@ If your change may impact performance:
 
 Documentation, apart from  `README.md`, is authored with [Material MkDocs](https://squidfunk.github.io/mkdocs-material/) and can be found in `docs/`. Implementation details belong in `mkdocs.yml`. We use **Google Docstring**.
 
-- Implementation is based on [mkdocs.yml](./mkdocs.yml) and  `scripts/gen_ref_pages.py`; do not hand-maintain `reference/api/` trees. The script automatically creates the reference for all files in the package. Settings are mainted in [mkdocs.yml](./mkdocs.yml) and all changes should be made there: see `extra.api_reference` (`packages`, `exclude`, `public_only`).
+- Implementation is based on [mkdocs.yml](./mkdocs.yml) and  `scripts/gen_ref_pages.py`; do not hand-maintain `reference/api/` trees. The script automatically creates the reference for all files in the package. Settings are maintained in [mkdocs.yml](./mkdocs.yml) and all changes should be made there: see `extra.api_reference` (`packages`, `exclude`, `public_only`).
 
 - Run docs:
   ```bash
@@ -355,7 +355,7 @@ Documentation, apart from  `README.md`, is authored with [Material MkDocs](https
 
 - Static checks include:
   - `mdformat` (for settings see [pyproject.toml](./pyproject.toml))
-  - [`pymarkdown` (PyPI: `pymarkdownlnt`)](https://pypi.org/project/pymarkdownlnt/) with settings sin `.pymarkdown.yaml`. Run `uv run pre-commit run --all-files`.
+  - [`pymarkdown` (PyPI: `pymarkdownlnt`)](https://pypi.org/project/pymarkdownlnt/) with settings in `.pymarkdown.yaml`. Run `uv run pre-commit run --all-files`.
   - `codespell` (`.codespellrc`)
   - MkDocs `--strict` (Building the docs site with “no warnings allowed” so small config/content problems break CI)
   - Lychee (`.lychee.toml`) in CI checks internal links offline (`docs/`, `README.md`, built `site/`) and runs a full network pass on those roots.
@@ -401,7 +401,7 @@ Automation lives under `.github/workflows/`; keep README/CONTRIBUTING notes alig
 ### CI workflow (`ci.yml`)
 
 - Installs reproducible tooling with `uv` (`astral-sh/setup-uv`).
-- `tests`: `uv sync --frozen --group dev` then `pytest`including tests on python snippets in documentation across Python `3.12`
+- `tests`: `uv sync --frozen --group dev` then `pytest`including tests on python snippets in documentation across Python `3.12`: `uv run pytest --markdown-docs docs tests on Python 3.12 and 3.13`
   & `3.13`.
 - `type-check`: `mypy` on `src/my_package`.
 - Packaging + smoke jobs (`package-build`, `artifact-smoke-test`, `sdist-smoke-test`, `editable-install-smoke-test`) run
