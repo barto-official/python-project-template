@@ -35,7 +35,7 @@ jobs:
 
       - name: Run tests
         run: |
-          uv run pytest --markdown-docs tests docs/guides/quickstart.md
+          uv run pytest --markdown-docs docs tests
 
   type-check:
     runs-on: ubuntu-latest
@@ -309,41 +309,28 @@ jobs:
           name: mkdocs-site
           path: site
 
-  link-check-internal-source:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-
-      - name: Internal link scan (offline, source Markdown)
-        uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-        with:
-          args: --config .lychee.toml --offline docs/ README.md
-
-  link-check-internal-site:
+  link-check-internal:
     runs-on: ubuntu-latest
     needs: docs-build
 
     steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
       - name: Download built site
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
           name: mkdocs-site
           path: site
 
-      - name: Internal link scan (offline, built HTML)
+      - name: Internal link scan (offline)
         uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         with:
-          args: --config .lychee.toml --offline site/
+          args: --config .lychee.toml --offline docs/ README.md site/
 
-  link-check-external-main:
-    if: ${{ github.event_name != 'pull_request' }}
+  link-check-external:
     runs-on: ubuntu-latest
     needs: docs-build
 
@@ -358,42 +345,13 @@ jobs:
           name: mkdocs-site
           path: site
 
-      - name: External link scan (blocking on main branch)
+      - name: External link scan (offline + online)
         uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         with:
           args: --config .lychee.toml site/ docs/ README.md
-
-  link-check-external-pr:
-    if: ${{ github.event_name == 'pull_request' }}
-    runs-on: ubuntu-latest
-    needs: docs-build
-
-    steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-        with:
-          fetch-depth: 0
-
-      - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
-        id: md_changes
-        with:
-          filters: |
-            markdown:
-              - 'docs/**/*.md'
-              - 'README.md'
-              - '**/README*.md'
-
-      - name: External link scan (changed Markdown — warnings only on PR)
-        if: ${{ steps.md_changes.outputs.markdown == 'true' }}
-        continue-on-error: true
-        uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-        with:
-          args: --config .lychee.toml ${{ steps.md_changes.outputs.markdown_files }}
 
   pre-commit:
     runs-on: ubuntu-latest

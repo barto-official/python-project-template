@@ -198,7 +198,7 @@ Enhancement suggestions are tracked as [GitHub issues](/issues).
 ```bash
 git clone [YOUR_REPO_URL]
 cd [REPO_DIR]
-````
+```
 
 ### Install dependencies
 
@@ -340,24 +340,38 @@ If your change may impact performance:
 
 ### Documentation toolchain
 
-Documentation is authored with [Material MkDocs](https://squidfunk.github.io/mkdocs-material/) alongside `README.md`
-(entry point) plus guides and reference prose under `docs/`. Implementation details belong in `mkdocs.yml`; source code
-references stay in Google-style docstrings (`src/`).
+Documentation, apart from  `README.md`, is authored with [Material MkDocs](https://squidfunk.github.io/mkdocs-material/) and can be found in `docs/`. Implementation details belong in `mkdocs.yml`. We use **Google Docstring**.
 
-- Extend the dynamic Python reference by editing `extra.api_reference` (`packages`, `exclude`, `public_only`) and
-  `scripts/gen_ref_pages.py`; do not hand-maintain `reference/api/` trees.
-- Whenever the Typer CLI changes: `uv sync --group docs` then
-  `uv run python scripts/generate_cli_reference.py my_package` (loads `my_package.cli.app`).
-- When ADRs or RFC files move: `python scripts/generate_index.py` (matches CI and the `adr-index` pre-commit hook).
-- Local authoring loop:
+- Implementation is based on [mkdocs.yml](./mkdocs.yml) and  `scripts/gen_ref_pages.py`; do not hand-maintain `reference/api/` trees. The script automatically creates the reference for all files in the package. Settings are mainted in [mkdocs.yml](./mkdocs.yml) and all changes should be made there: see `extra.api_reference` (`packages`, `exclude`, `public_only`).
+
+- Run docs:
   ```bash
   uv sync --group docs
   uv run mkdocs serve
   ```
+- Index for ADRs or RFC files is implemented by `python scripts/generate_index.py` (see `adr-index` in CI and the pre-commit hook).
 
-Static checks layered on Markdown include `mdformat` (+ GFM extras), [`pymarkdown` (PyPI: `pymarkdownlnt`)](https://pypi.org/project/pymarkdownlnt/)
-against `.pymarkdown.yaml`, `codespell` (`.codespellrc`), MkDocs `--strict`, and selective executable snippets enforced by
-pytest (allow-listed docstring examples plus `pytest --markdown-docs` over `docs/guides/quickstart.md`).
+- **Reference for CLI** is implemented using Typer docs utility in the script `uv run python scripts/generate_cli_reference.py my_package` (assumes structure: `my_package.cli.app`).
+
+- Static checks include:
+  - `mdformat` (for settings see [pyproject.toml](./pyproject.toml))
+  - [`pymarkdown` (PyPI: `pymarkdownlnt`)](https://pypi.org/project/pymarkdownlnt/) with settings sin `.pymarkdown.yaml`. Run `uv run pre-commit run --all-files`.
+  - `codespell` (`.codespellrc`)
+  - MkDocs `--strict` (Building the docs site with “no warnings allowed” so small config/content problems break CI)
+  - Lychee (`.lychee.toml`) in CI checks internal links offline (`docs/`, `README.md`, built `site/`) and runs a full network pass on those roots.
+  For local development run:
+  ```bash
+  #install lychee
+  brew install lychee
+
+  #offline for internal links
+  lychee --config .lychee.toml --offline docs/ README.md site/
+
+  #online for all links
+  lychee --config .lychee.toml site/ docs/ README.md
+  ```
+  - Executable examples in docs (`pytest-markdown-docs`). The dev dependency **`pytest-markdown-docs`** registers extra pytest behaviour when you pass **`--markdown-docs`**. At collection time, the plugin reads that Markdown file, finds **only** fenced blocks whose language is **`python`**, and turns each block into pytest test item(s) that are **executed as normal Python**. **`bash`**, **`powershell`**, and other fences are **ignored** by this mechanism.
+
 
 ### Hosted documentation and versions
 
@@ -368,10 +382,8 @@ Mike integration (`extra.version.provider: mike`) exposes `stable`, `latest`, an
 ### Documentation-related CI gates (`.github/workflows/ci.yml`)
 
 - `docs-build` regenerates CLI + indices, runs `mkdocs build --strict`, uploads the `mkdocs-site` artifact.
-- `link-check-internal-source` runs offline Lychee (`.lychee.toml`) over `docs/**` plus `README.md`.
-- `link-check-internal-site` downloads the MkDocs artefact and validates offline HTML links inside `site/`.
-- `link-check-external-pr` (pull requests only) follows remote URLs in changed Markdown; failures are advisory.
-- `link-check-external-main` repeats the broader external crawl on merges to `main` and fails the workflow on breakage.
+- `link-check-internal` downloads that artifact and runs **offline** Lychee (`.lychee.toml`) over `docs/`, `README.md`, and `site/` in one pass (no network — filesystem checks for internal targets).
+- `link-check-external` runs the **full network** crawl over the same three roots (`site/`, `docs/`, `README.md`) on **pull requests and pushes to `main`**; remote link failures fail the job.
 
 ### Architecture decisions (ADR / RFC)
 
@@ -389,7 +401,7 @@ Automation lives under `.github/workflows/`; keep README/CONTRIBUTING notes alig
 ### CI workflow (`ci.yml`)
 
 - Installs reproducible tooling with `uv` (`astral-sh/setup-uv`).
-- `tests`: `uv sync --frozen --group dev` then `pytest --markdown-docs tests docs/guides/quickstart.md` across Python `3.12`
+- `tests`: `uv sync --frozen --group dev` then `pytest`including tests on python snippets in documentation across Python `3.12`
   & `3.13`.
 - `type-check`: `mypy` on `src/my_package`.
 - Packaging + smoke jobs (`package-build`, `artifact-smoke-test`, `sdist-smoke-test`, `editable-install-smoke-test`) run

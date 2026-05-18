@@ -218,9 +218,6 @@ known-first-party = ["my_package"]
 wrap = 100
 number = true
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
 build_command = "uv build"

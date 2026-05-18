@@ -1,4 +1,4 @@
-"""Generate API reference pages and literate navigation for MkDocs.
+"""Generate API reference for MkDocs.
 
 Reads ``extra.api_reference`` from ``mkdocs.yml``. See that file for options.
 """
@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 REFERENCE = Path("reference/api")
 
+# default fallback
 DEFAULT_CONFIG: dict[str, Any] = {
     "packages": ["my_package"],
     "public_only": True,

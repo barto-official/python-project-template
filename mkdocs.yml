@@ -7,7 +7,9 @@ edit_uri: edit/main/docs/
 
 exclude_docs: |
   architecture/adr/README.md
+  architecture/adr/template.md
   rfc/README.md
+  rfc/template.md
 
 theme:
   palette:
@@ -85,7 +87,7 @@ extra:
       - my_package
     # When true: skip modules with private path segments (_name), hide _ members,
     # and hide symbols without docstrings. Set false to document everything found.
-    public_only: true
+    public_only: false
     # CLI is documented via docs/reference/cli.md (generate_cli_reference.py), not here.
     exclude:
       - "re:my_package\\.cli(\\..*)?$"
@@ -121,7 +123,7 @@ plugins:
                 - "!^_"                        # Exclude members whose names start with "_" (private)
               inherited_members: false         # Do not include inherited members from base classes
               # Docstring content control
-              show_if_no_docstring: false        # Hide undocumented members
+              show_if_no_docstring: true        # Hide undocumented members
   - git-revision-date-localized:
       enable_creation_date: true
       type: date
@@ -146,15 +148,14 @@ nav:
       - Validate a file: guides/validate-a-file.md
   - Commands:
       - Validate: commands/validate.md
+  # Hybrid nav (mkdocs-literate-nav): trailing slashes delegate subtree discovery.
+  # ADR/RFC markdown pages appear automatically; templates are excluded via exclude_docs.
   - Architecture:
-      - Overview: architecture.md
-      - ADRs:
-          - Overview: architecture/adr/index.md
-          - Template: architecture/adr/template.md
-          - ADR 0001: architecture/adr/0001-record-architecture-decisions.md
+      - Overview: architecture/index.md
+      - ADRs: architecture/adr/
   - RFC:
       - Overview: rfc/index.md
-      - Template: rfc/template.md
+      - RFCs: rfc/
   - Reference:
       - Overview: reference/index.md
       - CLI Reference: reference/cli.md
