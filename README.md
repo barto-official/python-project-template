@@ -50,3 +50,5 @@
 1. Adjust Ruff Settings in `pyproject.toml`
 
 1. Remove this README.md
+
+1. Replace all occurrences of `src/my_package` and `my_package` with the name of your package.
