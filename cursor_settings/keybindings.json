@@ -1,0 +1,89 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "cmd+l cmd+o",
+        "command": "-extension.liveServer.goOnline",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "cmd+l cmd+c",
+        "command": "-extension.liveServer.goOffline",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+cmd+backspace",
+        "command": "-search.searchEditor.action.deleteFileResults",
+        "when": "inSearchEditor"
+    },
+    {
+        "key": "shift+cmd+backspace",
+        "command": "workbench.action.navigateToLastEditLocation"
+    },
+    {
+        "key": "cmd+k cmd+q",
+        "command": "-workbench.action.navigateToLastEditLocation"
+    },
+    {
+        "key": "shift+cmd+s",
+        "command": "-workbench.action.files.saveLocalFile",
+        "when": "remoteFileDialogVisible"
+    },
+    {
+        "key": "shift+cmd+s",
+        "command": "-workbench.action.files.saveAs"
+    },
+    {
+        "key": "shift+cmd+s",
+        "command": "workbench.view.scm",
+        "when": "workbench.scm.active"
+    },
+    {
+        "key": "ctrl+shift+g",
+        "command": "-workbench.view.scm",
+        "when": "workbench.scm.active"
+    },
+    {
+        "key": "shift+cmd+s",
+        "command": "workbench.view.scm",
+        "when": "workbench.scm.active && !gitlens:disabled && config.gitlens.keymap == 'chorded'"
+    },
+    {
+        "key": "ctrl+shift+g",
+        "command": "-workbench.view.scm",
+        "when": "workbench.scm.active && !gitlens:disabled && config.gitlens.keymap == 'chorded'"
+    },
+    {
+        "key": "cmd+l",
+        "command": "composer.newAgentChat"
+    },
+    {
+        "key": "shift+cmd+l",
+        "command": "-composer.newAgentChat"
+    },
+    {
+        "key": "cmd+t",
+        "command": "-workbench.action.showAllSymbols"
+    },
+    {
+        "key": "cmd+t",
+        "command": "workbench.action.terminal.new",
+        "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
+    },
+    {
+        "key": "ctrl+shift+`",
+        "command": "-workbench.action.terminal.new",
+        "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
+    },
+    {
+        "key": "cmd+k",
+        "command": "composerMode.chat"
+    },
+    {
+        "key": "cmd+l",
+        "command": "composerMode.agent"
+    },
+    {
+        "key": "cmd+;",
+        "command": "composerMode.plan"
+    }
+]

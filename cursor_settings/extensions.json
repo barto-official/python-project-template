@@ -26,12 +26,12 @@
       "yzhang.markdown-all-in-one",
       "LittleFoxTeam.vscode-python-test-adapter",
       "wayou.vscode-todo-highlight",
-      "streetsidesoftware.code-spell-checker",
+      "streetsidesoftware.code-spell-checker"
     ],
     "unwantedRecommendations": [
        "ms-python.black-formatter",
         "ms-python.flake8",
         "ms-python.isort",
-        "njpwerner.autodocstring",
+        "njpwerner.autodocstring"
     ]
   }
