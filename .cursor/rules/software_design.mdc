@@ -1,0 +1,206 @@
+---
+description: Apply when planning, designing, or implementing a new feature, substantial refactor, public interface change, module/package change, or dependency-boundary change. Use for software design within one deployable codebase; use the architecture rule for system-level concerns.
+
+alwaysApply: false
+---
+# Software Design Rules
+
+## Objective
+
+Software design SHOULD minimize accidental complexity and the cost of change. It SHOULD optimize for readers and callers rather than for clever or compressed implementations.
+
+These rules apply to function, class, module, package, interface, and dependency design inside a deployable codebase.
+
+Cross-service topology, deployment, scaling, distributed-system coordination, and other system-level concerns MUST be evaluated under `architecture-quality` rather than this rule set.
+
+Do not attempt to maximize compliance with these principles.
+
+The goal is not to produce the maximum number of abstractions, domain types, interfaces, modules, validation layers, or dependency boundaries.
+
+A recommendation is justified only when it reduces a demonstrated or credible design cost.
+
+## Normative Language
+
+The capitalized terms **MUST**, **MUST NOT**, **SHOULD**, **SHOULD NOT**, and **MAY** are normative and use the meanings defined by BCP 14, RFC 2119 and RFC 8174.
+
+Only uppercase uses of these terms are normative.
+
+For this document:
+
+* **Requirement** — expressed with **MUST** or **MUST NOT**. A requirement is mandatory within the scope of this rule set.
+* **Default** — expressed with **SHOULD** or **SHOULD NOT**. A default is the preferred design. A different choice is acceptable only when there is a concrete reason and the consequences are understood.
+* **Review trigger** — identifies a pattern that warrants investigation. A review trigger is not, by itself, evidence of a design defect.
+
+A reviewer MUST NOT report a design defect solely because code matches a review trigger or differs from a default.
+
+Every reported design defect MUST identify a concrete cost or credible risk, such as:
+
+* excessive cognitive load,
+* change amplification,
+* hidden or inappropriate coupling,
+* non-local reasoning,
+* leaking responsibilities or representations,
+* duplicated or scattered policy,
+* unstable contracts,
+* unclear ownership,
+* or unnecessary indirection.
+
+A reviewer MUST distinguish the observed design problem from the principle or smell used to explain it.
+
+---
+
+## SD-1.0 Complexity
+
+* SD-1.1 Solutions SHOULD favor obviousness and readability over cleverness or compression.
+* SD-1.2 Design SHOULD be evaluated by cognitive load, change amplification, hidden dependencies, and the amount of non-local knowledge required to understand or change behavior.
+* SD-1.3 Line count MUST NOT be used by itself as evidence of poor design.
+* SD-1.4 Layers, patterns, wrappers, interfaces, classes, or other abstractions SHOULD NOT be introduced unless they remove, hide, isolate, or organize meaningful complexity.
+* SD-1.5 Units SHOULD support local reasoning: understanding a unit SHOULD NOT require loading unrelated parts of the system into memory.
+* SD-1.6 A design change SHOULD reduce total system complexity rather than merely move complexity elsewhere.
+
+## SD-2.0 Decomposition and Responsibility
+
+* SD-2.1 Each unit SHOULD have one coherent responsibility: one policy, capability, or primary axis of change.
+* SD-2.2 A module's purpose SHOULD be describable in one short, specific sentence.
+* SD-2.3 Rules, invariants, and behavior SHOULD remain with the concept or authority that owns them.
+* SD-2.4 A unit SHOULD be split when the resulting boundary creates independent reasoning, information hiding, change isolation, or a cleaner contract.
+* SD-2.5 Units that normally need to be changed, understood, or used together SHOULD remain together unless separation provides a stronger design benefit.
+* SD-2.6 A design SHOULD prefer a small number of deep modules with narrow interfaces over many shallow modules that primarily delegate.
+
+## SD-3.0 Cohesion and Coupling
+
+* SD-3.1 A unit SHOULD maximize semantic cohesion internally and minimize unnecessary coupling externally.
+* SD-3.2 Dependencies SHOULD be intentional, minimal, explicit, and directed toward stable contracts.
+* SD-3.3 A module MUST NOT depend on another module's private implementation details or representation when those details are outside the declared contract.
+* SD-3.4 Hidden coupling through global state, shared mutable state, call ordering, magic conventions, environment, or implicit runtime context SHOULD be avoided.
+* SD-3.5 Dependency direction SHOULD make ownership and policy boundaries clear.
+
+### Review trigger: Circular dependencies
+
+SD-3.6 A circular dependency MUST be investigated.
+
+SD-3.7 Its presence alone MUST NOT be reported as a design defect.
+
+SD-3.8 A circular dependency SHOULD be treated as a design problem when it causes or reflects concrete issues such as:
+
+* SD-3.9 unclear ownership,
+* SD-3.10 initialization or call-order constraints,
+* SD-3.11 change amplification,
+* SD-3.12 inability to reason about modules independently,
+* SD-3.13 inappropriate dependency direction,
+* SD-3.14 or leaking responsibilities.
+
+SD-3.15 When such costs exist, the boundary, ownership, or dependency direction SHOULD be corrected.
+
+## SD-4.0 Information Hiding
+
+* SD-4.1 Design decisions that are likely to change SHOULD be hidden behind stable boundaries where doing so reduces downstream change.
+* SD-4.2 Such decisions MAY include data representation, algorithms, validation mechanics, infrastructure details, configuration mechanics, and recovery mechanisms.
+* SD-4.3 Public interfaces SHOULD expose behavior and semantic choices while hiding implementation mechanisms.
+* SD-4.4 External and technical representations SHOULD be translated at appropriate boundaries before entering core logic.
+* SD-4.5 Database rows, framework objects, vendor models, transport types, and raw configuration SHOULD NOT leak into core logic when doing so couples core behavior to their representation.
+* SD-4.6 Callers MUST NOT be required to depend on implementation details outside a unit's declared public contract.
+* SD-4.7 If normal callers must reach through a boundary to use the abstraction correctly, the boundary SHOULD be reconsidered.
+
+## SD-5.0 Interfaces and Contracts
+
+* SD-5.1 Interfaces SHOULD be designed from the caller's perspective before optimizing their implementations.
+* SD-5.2 Interfaces SHOULD be narrow, cohesive, intention-revealing, and complete for their actual use cases.
+* SD-5.3 Each public operation MUST have defined semantics for the inputs, outputs, side effects, and errors on which callers are expected to rely.
+* SD-5.4 Ordering, concurrency, or idempotency guarantees MUST be defined when callers need those guarantees for correct behavior.
+* SD-5.5 Important preconditions and invariants SHOULD be represented through types, constructors, factories, or owning domain objects when doing so makes invalid states harder to represent.
+* SD-5.6 Error contracts SHOULD remain small, meaningful, and stable.
+* SD-5.7 Low-level, infrastructure, or vendor-specific errors SHOULD be translated at boundaries when callers should not depend on those details.
+* SD-5.8 Interfaces SHOULD be organized around roles or capabilities rather than broad entity or service abstractions when that produces a more cohesive contract.
+* SD-5.9 An abstraction SHOULD NOT be introduced merely because an implementation exists.
+* SD-5.10 An abstraction SHOULD be introduced when it isolates demonstrated volatility, enables meaningful substitution, or protects an important boundary.
+
+### Review trigger: Behavior flags
+
+SD-5.11 Boolean behavior flags or mode parameters MAY indicate that a single operation represents multiple distinct behaviors.
+
+SD-5.12 A reviewer MUST determine whether the flag:
+
+* SD-5.13 creates substantially different execution paths,
+* SD-5.14 obscures caller intent,
+* SD-5.15 combines separate responsibilities,
+* SD-5.16 or causes callers to understand implementation modes.
+
+SD-5.17 A behavior flag MUST NOT be reported as a defect when it represents a simple, cohesive option with a clear contract.
+
+SD-5.18 When a flag represents distinct operations, the API SHOULD prefer separate operations, expressive enums or types, or another contract that makes the behavioral distinction explicit.
+
+### Review trigger: Long parameter lists
+
+SD-5.19 A long parameter list MAY indicate missing cohesion, missing domain concepts, or excessive caller knowledge.
+
+SD-5.20 A reviewer MUST evaluate the semantics of the parameters rather than their count alone.
+
+SD-5.21 When parameters represent one cohesive concept, a parameter object or domain type SHOULD be considered.
+
+### Review trigger: Primitive-heavy contracts
+
+SD-5.22 Raw dictionaries, `Any`, strings, integers, and other primitive-heavy contracts MAY indicate that important domain meaning or invariants are not represented explicitly.
+
+SD-5.23 Stable domain concepts SHOULD use domain-specific types when those types improve correctness, readability, or invariant enforcement.
+
+SD-5.24 Primitive values MUST NOT be replaced with wrapper types solely to satisfy this rule.
+
+## SD-6.0 Dependency Direction
+
+* SD-6.1 High-level policy SHOULD NOT depend directly on volatile infrastructure, frameworks, storage mechanisms, transport mechanisms, or vendor details.
+* SD-6.2 Stable policy code SHOULD define the contracts it needs when doing so protects it from volatile implementations.
+* SD-6.3 Volatile implementations SHOULD depend on those contracts rather than forcing stable policy to depend on their details.
+* SD-6.4 Domain and core code SHOULD remain framework-independent when practical and when framework independence reduces meaningful coupling.
+* SD-6.5 Concrete dependencies SHOULD be assembled at a composition boundary and passed explicitly when doing so makes dependency ownership clearer.
+* SD-6.6 Module and package dependency graphs SHOULD be acyclic.
+
+
+SD-6.7 Interfaces, ports, adapters, or indirection layers SHOULD NOT be introduced unless they isolate meaningful change, protect a boundary, or enable useful substitution.
+
+## SD-7.0 Defensive Design and Determinism
+
+* SD-7.1 Untrusted input MUST be validated before trusted internal code relies on assumptions about that input.
+* SD-7.2 Validation SHOULD occur at the boundary where trust changes.
+* SD-7.3 Inputs SHOULD be normalized into trusted internal representations after successful validation.
+* SD-7.4 Invariants MUST be enforced by the authority that owns the relevant data or state transition.
+* SD-7.5 The same invariant SHOULD NOT be independently reimplemented across multiple callers.
+* SD-7.6 Trusted core code SHOULD NOT repeatedly revalidate guarantees already established by stronger boundaries, types, or owning objects unless doing so protects against a credible failure mode.
+
+SD-7.7 I/O and external integrations MUST be designed with explicit failure semantics appropriate to their risks.
+
+SD-7.8 Integration boundaries SHOULD consider:
+
+* SD-7.9 timeouts,
+* SD-7.10 retry behavior,
+* SD-7.11 idempotency,
+* SD-7.12 partial failure,
+* SD-7.13 cancellation,
+* SD-7.14 unavailable dependencies,
+* SD-7.15 and error translation.
+
+SD-7.16 Retries MUST NOT be added unless retrying the operation is safe or the implementation provides the required idempotency or deduplication semantics.
+
+SD-7.17 Time, randomness, environment, configuration, filesystem state, database state, and other behavior-changing external inputs SHOULD be explicit when they materially affect domain behavior, reproducibility, or tests.
+
+SD-7.18 Shared mutable state SHOULD be avoided.
+
+SD-7.19 State SHOULD have clear ownership, and immutable data SHOULD be preferred where it reduces coordination or reasoning costs.
+
+## SD-8.0 Generality and Change
+
+* SD-8.1 Speculative extension points, configuration options, abstractions, or plugin mechanisms SHOULD NOT be added for hypothetical future requirements.
+* SD-8.2 Future flexibility SHOULD be preserved only when the likely change would be expensive to retrofit and preserving the option has low present cost.
+* SD-8.3 The Open/Closed Principle SHOULD be applied after meaningful variation has been demonstrated.
+* SD-8.4 Once variation is demonstrated, the common contract SHOULD be stabilized and recurring variation SHOULD be placed behind a deliberate extension boundary.
+* SD-8.5 Compatibility with an existing abstraction SHOULD NOT be treated as a design goal when the abstraction itself is the primary source of unnecessary complexity and compatibility is not externally required.
+
+## SD-9.0 Function and Method Design
+
+* SD-9.1 A function or method SHOULD represent one conceptual operation.
+* SD-9.2 Side effects SHOULD be apparent from the operation, dependency, or surrounding abstraction.
+* SD-9.3 Domain computation SHOULD be pure when purity materially improves reasoning, testing, or reuse.
+* SD-9.4 Functions MUST NOT be split solely because they exceed an arbitrary line-count threshold.
+* SD-9.5 Extraction SHOULD produce an independently understandable subtask, a reusable concept, or a cleaner public operation.
+* SD-9.6 When two extracted functions must normally be read together to understand either one, the split SHOULD be reconsidered.
+* SD-9.7 A longer, cohesive function with a simple contract SHOULD be preferred over many tiny helpers that create additional navigation and must be mentally recomposed.

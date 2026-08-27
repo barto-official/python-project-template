@@ -1,0 +1,51 @@
+---
+alwaysApply: false
+---
+
+# Design-smell sweep
+
+Search for these as **signals** and verify the underlying problem before reporting:
+
+### Responsibility / cohesion
+- Long method that mixes concepts rather than merely being long.
+- Data class or anemic domain model where behavior/invariants are scattered elsewhere.
+- God class/module.
+- Feature envy.
+- Divergent change.
+
+### Change locality / state
+- Mutable aliasing.
+- Temporary fields or partially valid objects.
+- Large conditional blocks representing repeated variation.
+- Shotgun surgery.
+- Data clumps.
+- Duplicated business knowledge.
+
+### Coupling / dependencies
+- Stamp coupling.
+- Semantic coupling through undocumented assumptions.
+- Control coupling through flags/modes.
+- Train wreck/message chains.
+- Insider trading/inappropriate intimacy.
+- Global mutable state.
+- Framework leakage.
+- Circular dependencies.
+- Hidden dependencies.
+- Temporal coupling.
+
+### Abstraction / API
+- Leaky abstraction.
+- Repeated type switches/codes.
+- Alternative classes with incompatible interfaces for the same role.
+- Lazy classes and middlemen.
+- Parallel inheritance hierarchies.
+- Refused bequest.
+- Long parameter lists.
+- Boolean behavior flags.
+- Primitive obsession.
+- Over-abstraction.
+- Speculative generality.
+- Under-abstraction / duplicated knowledge.
+- Comments that explain confusing code instead of rationale or constraints.
+
+For every smell, ask: **what concrete knowledge, boundary, invariant, dependency, or change risk is being exposed?** If there is no meaningful cost, do not report it as a violation.

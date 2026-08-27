@@ -1,0 +1,414 @@
+---
+alwaysApply: true
+---
+
+## 1. Scope
+
+**Potential problems**
+1. Scope mixes several unrelated capabilities
+
+**Potential solutions**
+
+1. split by capability
+2. bounded contexts
+3. separate use cases
+
+## 2. Constraints
+
+**Design optimizes an unspecified quality**
+
+Potential solutions:
+
+* YAGNI,
+* measure first,
+* make the required property explicit.
+
+**Many constraints conflict**
+
+Potential solutions:
+
+* explicit trade-off,
+* ADR,
+* prioritize requirements,
+* reversible decision where possible.
+
+
+## 3. State and Rules
+
+Potential problems:
+
+**Important concepts represented as primitives**
+
+Potential solutions:
+
+* value objects,
+* enums,
+* typed models,
+* domain-specific types.
+
+**Business rules scattered across services**
+
+Potential solutions:
+
+* domain objects,
+* aggregate/root,
+* domain service,
+* policy object.
+
+**Objects contain data but no meaningful behavior**
+
+Potential solutions:
+
+* move invariants into domain objects,
+* move state transitions into domain objects,
+* value objects,
+* accept data-only model when the system is genuinely CRUD/data-transfer oriented.
+
+**Multiple pieces of code can mutate the same state**
+
+Potential solutions:
+
+* single ownership,
+* encapsulated mutation,
+* immutable values,
+* aggregate boundary,
+* explicit state-transition methods.
+
+
+## 4. Ownership
+
+
+Potential problems:
+
+**One unit owns unrelated responsibilities**
+
+Potential solutions:
+
+* split by responsibility,
+* split by use case,
+* split by domain capability,
+* extract infrastructure adapter.
+
+**Behavior operates mostly on another object's state**
+
+Potential solutions:
+
+* Move Method,
+* move behavior to owning object,
+* aggregate/root,
+* domain service when behavior genuinely spans concepts.
+
+**Same rule has several owners**
+
+Potential solutions:
+
+* centralize domain concept,
+* policy object,
+* single source of truth.
+
+**Modules repeatedly change together**
+
+Potential solutions:
+
+* merge modules,
+* reconsider boundary,
+* Common Closure Principle.
+
+
+## 5. Boundries
+
+
+Potential problems:
+
+**Boundary contains no meaningful hidden complexity**
+
+Potential solutions:
+
+* merge,
+* remove layer,
+* remove middleman,
+* deepen module.
+
+**Boundary leaks implementation details**
+
+Potential solutions:
+
+* adapter,
+* mapping layer,
+* application/domain types,
+* translate infrastructure errors,
+* narrow interface,
+* anti-corruption layer.
+
+**Callers bypass the boundary**
+
+Potential solutions:
+
+* improve public API,
+* facade,
+* enforce package/import boundaries,
+* architecture tests,
+* banned-import tooling.
+
+**Too many small boundaries**
+
+Potential solutions:
+
+* merge shallow modules,
+* reduce classitis,
+* prefer deeper modules,
+* remove unnecessary indirection.
+
+## 6. Interface and Contracts
+
+
+Potential problems:
+
+**Interface has too many operations**
+
+Potential solutions:
+
+* Interface Segregation Principle,
+* role interfaces,
+* capability-based API,
+* merge overlapping operations,
+* remove speculative methods.
+
+**Many boolean/mode parameters**
+
+Potential solutions:
+
+* explicit operations,
+* strategy,
+* enum,
+* structured parameter object,
+* move optional side effect outside core operation.
+
+**Long parameter list**
+
+Potential solutions:
+
+* parameter object,
+* command object,
+* value object,
+* dependency injection,
+* split responsibility.
+
+**Large object passed but little is used**
+
+Potential solutions:
+
+* pass required fields,
+* smaller parameter object,
+* role interface/Protocol,
+* move behavior to owner.
+
+**Caller must know hidden ordering rules**
+
+Potential solutions:
+
+* constructor requirements,
+* factory,
+* explicit state machine,
+* lifecycle types,
+* context manager.
+
+**Infrastructure exceptions escape**
+
+Potential solutions:
+
+* error translation,
+* domain/application error taxonomy,
+* adapter boundary.
+
+
+## 7. Dependency Direction
+
+
+Potential problems:
+
+**Domain/application code imports infrastructure**
+
+Potential solutions:
+
+* Dependency Inversion Principle,
+* Protocol/interface,
+* ports and adapters,
+* dependency injection,
+* composition root.
+
+**Circular dependencies**
+
+Potential solutions:
+
+* extract shared concept,
+* application-level orchestrator,
+* dependency inversion,
+* domain/application events,
+* reconsider ownership boundary.
+
+**Hidden dependencies**
+
+Potential solutions:
+
+* function parameters,
+* constructor injection,
+* typed settings,
+* composition root.
+
+**Framework types spread through core code**
+
+Potential solutions:
+
+* boundary adapters,
+* separate API schemas,
+* separate persistence models,
+* mappers,
+* ports.
+
+**Two modules know each other's internals**
+
+Potential solutions:
+
+* public module API,
+* intention-revealing methods,
+* mapper,
+* reconsider ownership,
+* merge if separation is artificial.
+
+## 8. Runtime and State Semantics
+
+
+Potential problems:
+
+**Operation may run more than once**
+
+Potential solutions:
+
+* idempotency key,
+* deduplication,
+* unique constraint,
+* idempotent operation design.
+
+**Concurrent updates may conflict**
+
+Potential solutions:
+
+* transaction,
+* optimistic locking,
+* versioning,
+* serialization,
+* explicit state machine.
+
+**Order of operations is implicit**
+
+Potential solutions:
+
+* workflow/orchestrator,
+* state machine,
+* lifecycle API,
+* explicit sequencing contract.
+
+**Shared mutable state creates unpredictable behavior**
+
+Potential solutions:
+
+* immutability,
+* defensive copies,
+* ownership,
+* explicit state passing.
+
+**Control flow contains many branches**
+
+Potential solutions:
+
+* early returns,
+* extract functions,
+* enum behavior,
+* strategy,
+* dispatch table,
+* state machine.
+
+**Asynchronous processing introduces complexity**
+
+Potential solutions:
+
+* synchronous call when sufficient,
+* idempotent consumers,
+* explicit retry policy,
+* ordering strategy,
+* dead-letter handling,
+* checkpointing.
+
+**Environment/time/randomness leaks into domain logic**
+
+Potential solutions:
+
+* dependency injection,
+* explicit parameters,
+* typed settings,
+* seeded randomness where appropriate.
+
+
+## 9. Extension Points
+
+
+Potential problems:
+
+**Repeated conditional logic for variants**
+
+Potential solutions:
+
+* strategy,
+* polymorphism,
+* dispatch table,
+* enum behavior,
+* policy object,
+* plugin architecture when genuine runtime extension is required.
+
+**Different implementations expose incompatible APIs**
+
+Potential solutions:
+
+* Protocol/interface,
+* Adapter.
+
+**Subclass does not honor parent behavior**
+
+Potential solutions:
+
+* Interface Segregation,
+* composition over inheritance,
+* redesign hierarchy,
+* separate interfaces.
+
+**Two inheritance hierarchies evolve together**
+
+Potential solutions:
+
+* strategy,
+* registry,
+* move behavior,
+* replace one hierarchy with configuration/data.
+
+**Too many abstractions for current requirements**
+
+Potential solutions:
+
+* inline abstraction,
+* collapse layers,
+* concrete workflow,
+* remove factory,
+* wait for real variation,
+* YAGNI.
+
+**Same knowledge repeatedly reimplemented**
+
+Potential solutions:
+
+* extract domain concept,
+* value object,
+* policy object,
+* boundary parser,
+* shared workflow,
+* adapter.

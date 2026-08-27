@@ -1,0 +1,8 @@
+---
+alwaysApply: false
+---
+Use coonvetnional commits rules from this repo: `@.cursor/rules/conventionall-commits.mdc`  (@conventional_commits)
+
+and create logical commits based on my branch. Don't push. Use simple, straightforward language so users and other developers will understand it. Don't use jargon or obfuscated language.
+
+Description of the commit should be a maximum of 2 bullet points. Description should not use mention to internal agent chat. Rather it should contain what outside users/customers should not about his change: high level overview.

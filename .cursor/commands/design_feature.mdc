@@ -1,0 +1,178 @@
+---
+alwaysApply: false
+---
+MUST: Apply each step proportionally. Do not invent domain concepts, state, boundaries, failure modes,
+contracts, or infrastructure concerns merely to complete the template. If a section is not materially relevant, mark it "Not applicable" with at most a brief reason and move on.
+
+
+MUST: When there is a consequential design choice with multiple credible
+approaches, identify 2–3 viable alternatives and compare them. Do not manufacture alternatives for straightforward decisions.
+
+**Maintain an Assumptions / Open Questions section.**
+
+Do not silently resolve ambiguity when different answers would
+materially change:
+- public behavior,
+- ownership,
+- state model,
+- compatibility,
+- dependencies,
+- error semantics,
+- or implementation cost.
+
+For reversible/local decisions, state the assumption and continue.
+For consequential decisions, surface the question before treating
+the design as final.
+
+# 0. Research on repository state — Before modeling a solution:
+    - inspect the relevant modules and public contracts;
+    - identify current responsibility and ownership boundaries;
+    - identify existing domain concepts and abstractions;
+    - trace the main relevant call/data flow;
+    - identify constraints imposed by compatibility and existing behavior;
+    - identify reusable existing mechanisms;
+    - distinguish existing accidental complexity from intentional design.
+
+
+# 1. **Define the Scope** — Write down:
+
+    * capability being built,
+    * actors/callers,
+    * main use cases,
+    * what is in scope,
+    * what is explicitly out of scope,
+    * required observable outcomes.
+
+
+# 2. **Identify Constraints**
+
+Record only engineering constraints that can affect design as bullet points.
+
+# 3. **Model the Important State and Rules**
+
+Output: Bullet points/free text with identified:
+
+* domain concepts,
+* identity,
+* authoritative data,
+* state,
+* lifecycle,
+* invariants,
+* valid state transitions,
+* relationships.
+
+---
+
+# 4. Assign Ownership — For every important piece of knowledge decide which unit is authoritative. Provide a list with:
+
+    - Responsibility — coherent capability/policy
+    - Owns — state, rules, or knowledge for which it is authoritative
+    - Enforces — invariants it is responsible for
+    - Provides — public capability/contract
+    - Hides — representation or implementation choices
+
+
+
+---
+
+# 5. **Define Boundaries** — Provide a list with:
+    * **Ownership**
+    * **Interface**
+    * **Information hidden**
+    * **Dependency direction**
+
+Choose boundaries primarily around:
+
+* domain capability,
+* data ownership,
+* volatility,
+* trust/security,
+* performance/reliability isolation.
+
+Prefer logical boundaries before physical deployment boundaries.
+
+---
+
+# 6. Design the Interface and Contract
+
+For important or newly introduced public operations, define the
+semantics callers need to rely on:
+
+* purpose,
+* input,
+* result,
+* preconditions,
+* postconditions,
+* errors,
+* side effects,
+* idempotency if relevant.
+
+Then, provide a function/class/similar object signature as a real code or pseudocode.
+
+Prefer:
+
+* narrow interfaces,
+* domain language,
+* explicit semantics,
+* safe defaults,
+* few configuration parameters,
+
+Keep implementation details private.
+
+
+---
+
+# 7. Decide Dependency Direction — Draw the dependency graph.
+
+Aim for:
+
+* no accidental cycles,
+* stable policy independent of volatile mechanisms,
+* high-level code depending on contracts,
+* implementation plugged into those contracts,
+* construction/wiring kept at the composition root.
+
+Use dependency inversion where it protects a meaningful boundary.
+
+---
+
+# 8. Decide Runtime and State Semantics
+
+For state-changing, concurrent, or externally integrated flows,
+decide the applicable runtime semantics: (else: skip this step)
+
+* who orchestrates it,
+* synchronous vs asynchronous execution,
+* transaction boundary,
+* consistency model,
+* retry behavior,
+* idempotency,
+* concurrency behavior,
+* ordering requirements,
+* partial-failure behavior,
+* external side effects.
+
+Keep nondeterministic inputs explicit where useful:
+
+* time,
+* randomness,
+* configuration,
+* external state,
+* ordering,
+* concurrency.
+
+# 9. Produce the Proposed Design
+
+Output:
+
+1. Design summary
+2. Major modules/responsibilities
+3. Important contracts
+4. Dependency structure
+5. Main execution/data flows
+6. Important invariants/state ownership
+7. Failure/runtime semantics where relevant
+8. Changes to existing code
+9. Explicit design decisions/trade-offs
+10. Open questions/assumptions
+11. Implementation sequence

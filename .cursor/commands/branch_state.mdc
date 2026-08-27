@@ -1,0 +1,10 @@
+---
+description: Branch-State-Before-PR
+alwaysApply: false
+---
+
+Context: Changes in the branch will ultimately be marged into `main` (or other branch if specified by the user) via Pull Request. PR should be easy to review so it should stay at or below 500 line changes. (excluding docs and docstring).
+
+What you should do: Before you do the commit, provide information on the sate of the branch and what line changes we accumulate in the branch at origin (what we already pushed + commits we plan to build now). If 500 line changes is exceeded, don't fail but tell it to user and propose a logical split into multiple PRs.
+
+Important: This rule is not dogmatic. If changes must/should be reviewd together, it's fine to put more lines but still — notify the user on the count.

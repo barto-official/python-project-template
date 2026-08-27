@@ -16,31 +16,15 @@ Use the repository's existing configuration as the source of truth. Do not intro
 
 ## Domain Knowledge & Reference
 
-## Referenced Engineering Guidance
-
-Before making changes that involve the relevant concerns, read and follow:
-
-- if you work on new feature: `{SOFTWARE_DESIGN_GUIDE_PATH}`
-- if you work on package, architecture design, refactoring, or high level architecture: `{ARCHITECTURE_DESIGN_GUIDE_PATH}`
-- if you do code implementation: `{CODE_STYLE_GUIDE_PATH}`
-
-These documents take precedence for their respective domains. Do not restate or independently reinterpret their rules here.
+{ADD IF NEEDED}
 
 ## Working Principles
+
+Add Google-style docstrings for public modules, classes, functions, and externally meaningful behavior where they improve use. All code should stick to quality rules defined in `pyproject.toml`
 
 ### Prefer strategic programming
 
 Except for fixes, hotfixes, and clearly small changes, **do not jump directly into implementation**.
-
-For substantial work, first:
-
-1. Define the problem and desired outcome.
-2. Identify relevant constraints and existing behavior.
-3. Consider viable implementation approaches.
-4. Analyze trade-offs, risks, maintenance cost, and compatibility.
-5. Recommend an approach and explain why.
-6. Produce a concrete implementation plan.
-7. Implement only after the direction is established.
 
 Planning should be proportional to the task. Avoid ceremony for trivial changes, but do not treat significant design decisions as implementation details.
 
@@ -50,18 +34,18 @@ When requirements are ambiguous or significantly affect architecture, public beh
 
 ### Keep designs proportional
 
-Avoid unnecessary abstraction and fragmentation, including:
-
-- classes that do not meaningfully model state, behavior, or a domain concept;
-- functions created only to reduce line count or satisfy an arbitrary notion of decomposition;
-- wrappers that add indirection without adding semantics;
-- interfaces, factories, registries, or extension points without a demonstrated need;
-- premature generalization for hypothetical future requirements
-- error exceptions that are unnecessary and can be moved to the edge
+The main design goal is the code to be understandable not clever and reduce complexity.
 
 Defensive programming is appropriate when it protects real boundaries, invariants, failure modes, or external inputs. Do not add defensive layers for impossible or purely speculative conditions.
 
-Prefer cohesive code with clear ownership over excessive decomposition ("classitis", "functionitis", or abstraction for its own sake).
+Prefer cohesive code with clear ownership over excessive decomposition.
+
+For non-trivial implementation and design work, prefer the
+smallest design that adequately addresses the demonstrated problem.
+
+Apply the software-design skill when the change materially affects
+responsibilities, interfaces, dependencies, state ownership, or
+module/package structure.
 
 ### Preserve compatibility
 
@@ -107,7 +91,7 @@ Do not weaken, delete, or bypass a failing test simply to make the suite pass un
 
 ## Git Workflow
 
-Branh names: follow conventional commit types.
+Branch names: follow conventional commit types so branches follow the same: feat, fix, style, refactor etc.
 
 Never push to a remote repository. Do not alter remote state, publish branches, create releases, or perform equivalent remote Git operations unless the user explicitly changes this rule.
 
@@ -119,7 +103,12 @@ uv run prek run --all-files
 
 Keep commits coherent and scoped to the work being performed. Do not include unrelated changes.
 
-For commits, use conventional commits. Create logical commits based on  branch changes. Avoid one big commit. Don't push. Use simple, straightforward language so users and other developers will understand it. Don't use jargon or obfuscated language. Description of the commit should be a maximum of 2 bullet points. Description should not use mention to internal agent chat. Rather it should contain what outside users/customers should not about his change: high level overview.
+For commits, use conventional commits.
+* Create logical commits based on  branch changes and avoid one big commit. Don't push.
+* Use simple, straightforward language so users and other developers will understand it.
+* Don't use jargon or obfuscated language.
+* Description of the commit should be a maximum of 2 bullet points.
+* In description, do not mention internal agent conversations; describe the customer-relevant change.
 
 Branch changes will be delivered as Pull Request. Pull Requests SHOULD stay below 500 lines. This rule is not hardcoded but notify if this treshold will be crossed and propose how to split changes.
 
